@@ -7,3 +7,25 @@
 //
 
 import Foundation
+
+class Listing: NSObject, Codable {
+    var id: String?
+    var title: String?
+    var category: Category?
+    var quantity: Int?
+    var unit: String?
+    var address: String?
+    var desc: String?
+    var iconName: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case category
+        case quantity
+        case unit
+        case address
+        case desc
+        case iconName
+    }
+}

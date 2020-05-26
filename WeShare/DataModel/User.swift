@@ -6,4 +6,7 @@
 //  Copyright © 2020 Monash University. All rights reserved.
 //
 
-import Foundation
+class User: Codable {
+    var name: String?
+    var phone: String?
+}
