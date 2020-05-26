@@ -3,12 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42FB12C9BCD73F1379F51905 /* Pods_WeShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68569C0329A153044D7177A8 /* Pods_WeShare.framework */; };
 		FB113A1A247B658400CC924D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB113A19247B658400CC924D /* LoginViewController.swift */; };
 		FB1646A6247B75A10092F083 /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646A5247B75A10092F083 /* TextFieldExtensions.swift */; };
+		FB1646E6247CBE8F0092F083 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646E5247CBE8F0092F083 /* MulticastDelegate.swift */; };
+		FB1646E8247CBEAD0092F083 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646E7247CBEAD0092F083 /* DatabaseProtocol.swift */; };
+		FB1646EA247CC75D0092F083 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646E9247CC75D0092F083 /* Listing.swift */; };
+		FB1646EC247CC7690092F083 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646EB247CC7690092F083 /* User.swift */; };
+		FB1646EE247CC79B0092F083 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646ED247CC79B0092F083 /* Category.swift */; };
+		FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646EF247CDBC10092F083 /* FirebaseController.swift */; };
+		FB1646F2247D25A80092F083 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB1646F1247D25A80092F083 /* GoogleService-Info.plist */; };
 		FB714F2D2476E267007FFFA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F2C2476E267007FFFA9 /* AppDelegate.swift */; };
 		FB714F2F2476E267007FFFA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */; };
 		FB714F312476E267007FFFA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F302476E267007FFFA9 /* ViewController.swift */; };
@@ -20,8 +28,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21567F047608FDBE6B9747ED /* Pods-WeShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeShare.debug.xcconfig"; path = "Target Support Files/Pods-WeShare/Pods-WeShare.debug.xcconfig"; sourceTree = "<group>"; };
+		2BE8B77A2A806E1E7BCFA7AC /* Pods-WeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeShare.release.xcconfig"; path = "Target Support Files/Pods-WeShare/Pods-WeShare.release.xcconfig"; sourceTree = "<group>"; };
+		68569C0329A153044D7177A8 /* Pods_WeShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB113A19247B658400CC924D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FB1646A5247B75A10092F083 /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
+		FB1646E5247CBE8F0092F083 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		FB1646E7247CBEAD0092F083 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		FB1646E9247CC75D0092F083 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		FB1646EB247CC7690092F083 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FB1646ED247CC79B0092F083 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		FB1646EF247CDBC10092F083 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
+		FB1646F1247D25A80092F083 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB714F292476E267007FFFA9 /* WeShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB714F2C2476E267007FFFA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,12 +57,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42FB12C9BCD73F1379F51905 /* Pods_WeShare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C2C8606E06C3E85991D9E13 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				68569C0329A153044D7177A8 /* Pods_WeShare.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7FC82673C0D0B87BFA35DA73 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				21567F047608FDBE6B9747ED /* Pods-WeShare.debug.xcconfig */,
+				2BE8B77A2A806E1E7BCFA7AC /* Pods-WeShare.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FB1646A4247B75840092F083 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -53,11 +89,42 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		FB1646E3247CBA660092F083 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				FB1646E9247CC75D0092F083 /* Listing.swift */,
+				FB1646EB247CC7690092F083 /* User.swift */,
+				FB1646ED247CC79B0092F083 /* Category.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		FB1646E4247CBB080092F083 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				FB1646E5247CBE8F0092F083 /* MulticastDelegate.swift */,
+				FB1646E7247CBEAD0092F083 /* DatabaseProtocol.swift */,
+				FB1646EF247CDBC10092F083 /* FirebaseController.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		FB1646F3247D29610092F083 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */,
+				FB113A19247B658400CC924D /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		FB714F202476E267007FFFA9 = {
 			isa = PBXGroup;
 			children = (
 				FB714F2B2476E267007FFFA9 /* WeShare */,
 				FB714F2A2476E267007FFFA9 /* Products */,
+				7FC82673C0D0B87BFA35DA73 /* Pods */,
+				3C2C8606E06C3E85991D9E13 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,17 +139,19 @@
 		FB714F2B2476E267007FFFA9 /* WeShare */ = {
 			isa = PBXGroup;
 			children = (
+				FB1646F1247D25A80092F083 /* GoogleService-Info.plist */,
+				FB1646F3247D29610092F083 /* ViewControllers */,
+				FB1646E4247CBB080092F083 /* Database */,
+				FB1646E3247CBA660092F083 /* DataModel */,
 				FB1646A4247B75840092F083 /* Extensions */,
 				FB714F2C2476E267007FFFA9 /* AppDelegate.swift */,
 				FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */,
 				FB714F302476E267007FFFA9 /* ViewController.swift */,
 				FB714F322476E267007FFFA9 /* Main.storyboard */,
-				FB714F352476E26B007FFFA9 /* Assets.xcassets */,
 				FB714F372476E26B007FFFA9 /* LaunchScreen.storyboard */,
+				FB714F352476E26B007FFFA9 /* Assets.xcassets */,
 				FB714F3A2476E26B007FFFA9 /* Info.plist */,
 				FB714F42247752E0007FFFA9 /* ListingTableViewCell.swift */,
-				FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */,
-				FB113A19247B658400CC924D /* LoginViewController.swift */,
 			);
 			path = WeShare;
 			sourceTree = "<group>";
@@ -94,9 +163,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB714F3D2476E26B007FFFA9 /* Build configuration list for PBXNativeTarget "WeShare" */;
 			buildPhases = (
+				F858362A8EB1ABD3E5459A8E /* [CP] Check Pods Manifest.lock */,
 				FB714F252476E267007FFFA9 /* Sources */,
 				FB714F262476E267007FFFA9 /* Frameworks */,
 				FB714F272476E267007FFFA9 /* Resources */,
+				FF77518237BA7D51C3A1277B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -146,12 +217,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB714F392476E26B007FFFA9 /* LaunchScreen.storyboard in Resources */,
+				FB1646F2247D25A80092F083 /* GoogleService-Info.plist in Resources */,
 				FB714F362476E26B007FFFA9 /* Assets.xcassets in Resources */,
 				FB714F342476E267007FFFA9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F858362A8EB1ABD3E5459A8E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WeShare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF77518237BA7D51C3A1277B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WeShare/Pods-WeShare-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WeShare/Pods-WeShare-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeShare/Pods-WeShare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FB714F252476E267007FFFA9 /* Sources */ = {
@@ -160,11 +274,17 @@
 			files = (
 				FB113A1A247B658400CC924D /* LoginViewController.swift in Sources */,
 				FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */,
+				FB1646EA247CC75D0092F083 /* Listing.swift in Sources */,
 				FB714F312476E267007FFFA9 /* ViewController.swift in Sources */,
+				FB1646E6247CBE8F0092F083 /* MulticastDelegate.swift in Sources */,
 				FB714F43247752E0007FFFA9 /* ListingTableViewCell.swift in Sources */,
 				FB714F2D2476E267007FFFA9 /* AppDelegate.swift in Sources */,
 				FB1646A6247B75A10092F083 /* TextFieldExtensions.swift in Sources */,
 				FB714F2F2476E267007FFFA9 /* SceneDelegate.swift in Sources */,
+				FB1646E8247CBEAD0092F083 /* DatabaseProtocol.swift in Sources */,
+				FB1646EC247CC7690092F083 /* User.swift in Sources */,
+				FB1646EE247CC79B0092F083 /* Category.swift in Sources */,
+				FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +426,7 @@
 		};
 		FB714F3E2476E26B007FFFA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21567F047608FDBE6B9747ED /* Pods-WeShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -323,6 +444,7 @@
 		};
 		FB714F3F2476E26B007FFFA9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BE8B77A2A806E1E7BCFA7AC /* Pods-WeShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

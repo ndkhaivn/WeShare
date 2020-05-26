@@ -8,11 +8,13 @@
 
 import UIKit
 
-class NearbyListingsViewController: UIViewController {
+class NearbyListingsViewController: UIViewController, DatabaseListener {
+    var listenerType: ListenerType = .listings
     
+    weak var databaseController: DatabaseProtocol?
     
     @IBOutlet weak var tableView: UITableView!
-    var nearbyListings: [String] = ["Hand Sanitizer", "Toilet paper", "Food"];
+    var nearbyListings: [Listing] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +22,16 @@ class NearbyListingsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
     }
     
-
+    func onListingsChange(change: DatabaseChange, listings: [Listing]) {
+        nearbyListings = listings
+        tableView.reloadData()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -38,14 +47,14 @@ class NearbyListingsViewController: UIViewController {
 extension NearbyListingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return nearbyListings.count
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let listingCell = tableView.dequeueReusableCell(withIdentifier: "listingCell", for: indexPath) as! ListingTableViewCell;
-        listingCell.listingTitle?.text = nearbyListings[indexPath.row];
+        listingCell.listingTitle?.text = nearbyListings[indexPath.row].title;
 
         return listingCell
     }
