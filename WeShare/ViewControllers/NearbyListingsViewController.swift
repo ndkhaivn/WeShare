@@ -28,8 +28,19 @@ class NearbyListingsViewController: UIViewController, DatabaseListener {
     }
     
     func onListingsChange(change: DatabaseChange, listings: [Listing]) {
+        print("listing changed")
         nearbyListings = listings
         tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
     }
     
     /*
@@ -54,9 +65,27 @@ extension NearbyListingsViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let listingCell = tableView.dequeueReusableCell(withIdentifier: "listingCell", for: indexPath) as! ListingTableViewCell;
-        listingCell.listingTitle?.text = nearbyListings[indexPath.row].title;
+        let listing = nearbyListings[indexPath.row]
+        listingCell.listingTitle?.text = listing.title;
+        
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        imageView.image = UIImage(systemName: listing.iconName!)
+        imageView.contentMode = .scaleAspectFill
+        imageView.tintColor = UIColor.systemOrange
+    
+        listingCell.listingIcon?.layer.cornerRadius = 25
+        listingCell.listingIcon?.layer.borderColor = UIColor.systemOrange.cgColor
+        listingCell.listingIcon?.layer.borderWidth = 3
+        listingCell.listingIcon?.addSubview(imageView)
+        
+        
+//        print(UIImage(systemName: listing.iconName!))
 
         return listingCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     

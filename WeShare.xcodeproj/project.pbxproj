@@ -146,12 +146,12 @@
 				FB1646A4247B75840092F083 /* Extensions */,
 				FB714F2C2476E267007FFFA9 /* AppDelegate.swift */,
 				FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */,
+				FB714F42247752E0007FFFA9 /* ListingTableViewCell.swift */,
 				FB714F302476E267007FFFA9 /* ViewController.swift */,
 				FB714F322476E267007FFFA9 /* Main.storyboard */,
 				FB714F372476E26B007FFFA9 /* LaunchScreen.storyboard */,
 				FB714F352476E26B007FFFA9 /* Assets.xcassets */,
 				FB714F3A2476E26B007FFFA9 /* Info.plist */,
-				FB714F42247752E0007FFFA9 /* ListingTableViewCell.swift */,
 			);
 			path = WeShare;
 			sourceTree = "<group>";

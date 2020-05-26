@@ -12,6 +12,8 @@ class ListingTableViewCell: UITableViewCell {
 
 
     @IBOutlet weak var listingTitle: UILabel!
+    @IBOutlet weak var listingIcon: UIView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
