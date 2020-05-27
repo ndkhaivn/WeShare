@@ -13,10 +13,12 @@ class MapAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
+    var systemIconName: String?
     
-    init(title: String, subtitle: String, lat: Double, lng: Double) {
+    init(title: String, subtitle: String, lat: Double, lng: Double, iconName: String) {
         self.title = title
         self.subtitle = subtitle
+        self.systemIconName = iconName
         coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
     }
 }

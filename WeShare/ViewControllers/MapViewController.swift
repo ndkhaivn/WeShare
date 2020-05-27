@@ -16,7 +16,7 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
 
     @IBOutlet weak var mapView: MKMapView!
     
-    private var allAnnotations: [MKAnnotation]?
+    private var allAnnotations: [MKAnnotation] = []
     
     private var displayedAnnotations: [MKAnnotation]? {
         willSet {
@@ -50,17 +50,24 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
     
     func onListingsChange(change: DatabaseChange, listings: [Listing]) {
         print(listings.count)
+        
+        // Remove existing annotations before adding new ones
+        mapView.removeAnnotations(allAnnotations)
+        
         listings.forEach { listing in
             print(listing.desc!)
-            let annotation = MapAnnotation(title: listing.title!, subtitle: listing.desc!, lat: listing.location![0], lng: listing.location![1])
+            let annotation = MapAnnotation(title: listing.title!, subtitle: listing.desc!, lat: listing.location![0], lng: listing.location![1], iconName: (listing.category?.systemIcon!)!)
             
             mapView.addAnnotation(annotation)
+            allAnnotations.append(annotation)
         }
+        
+        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        if ((annotation as? MapAnnotation) == nil) {
+        guard let annotation = annotation as? MapAnnotation else {
             return nil
         }
         
@@ -68,13 +75,13 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
         if let markerAnnotationView = view as? MKMarkerAnnotationView {
             
-            markerAnnotationView.glyphImage = UIImage(systemName: "house")
+            markerAnnotationView.glyphImage = UIImage(systemName: annotation.systemIconName!)
 
             
             markerAnnotationView.canShowCallout = true
             markerAnnotationView.animatesWhenAdded = true
             
-            markerAnnotationView.loadDescription(description: annotation.subtitle!!)
+            markerAnnotationView.loadDescription(description: annotation.subtitle!)
             
             let rightButton = UIButton(type: .detailDisclosure)
             markerAnnotationView.rightCalloutAccessoryView = rightButton
