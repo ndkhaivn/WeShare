@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/ndkhaivn/Documents/WeShare/WeShare/Monash University Clayton.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:monash.gpx">
+   </FileRef>
+   <FileRef
       location = "group:WeShare.xcodeproj">
    </FileRef>
    <FileRef

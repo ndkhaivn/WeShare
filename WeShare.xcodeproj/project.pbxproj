@@ -17,6 +17,8 @@
 		FB1646EE247CC79B0092F083 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646ED247CC79B0092F083 /* Category.swift */; };
 		FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1646EF247CDBC10092F083 /* FirebaseController.swift */; };
 		FB1646F2247D25A80092F083 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB1646F1247D25A80092F083 /* GoogleService-Info.plist */; };
+		FB16471F247E0F610092F083 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB16471E247E0F610092F083 /* MapViewController.swift */; };
+		FB164721247E64EF0092F083 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB164720247E64EF0092F083 /* MapAnnotation.swift */; };
 		FB714F2D2476E267007FFFA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F2C2476E267007FFFA9 /* AppDelegate.swift */; };
 		FB714F2F2476E267007FFFA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */; };
 		FB714F312476E267007FFFA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F302476E267007FFFA9 /* ViewController.swift */; };
@@ -40,6 +42,8 @@
 		FB1646ED247CC79B0092F083 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FB1646EF247CDBC10092F083 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		FB1646F1247D25A80092F083 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FB16471E247E0F610092F083 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FB164720247E64EF0092F083 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		FB714F292476E267007FFFA9 /* WeShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB714F2C2476E267007FFFA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 			children = (
 				FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */,
 				FB113A19247B658400CC924D /* LoginViewController.swift */,
+				FB16471E247E0F610092F083 /* MapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 				FB714F372476E26B007FFFA9 /* LaunchScreen.storyboard */,
 				FB714F352476E26B007FFFA9 /* Assets.xcassets */,
 				FB714F3A2476E26B007FFFA9 /* Info.plist */,
+				FB164720247E64EF0092F083 /* MapAnnotation.swift */,
 			);
 			path = WeShare;
 			sourceTree = "<group>";
@@ -283,8 +289,10 @@
 				FB714F2F2476E267007FFFA9 /* SceneDelegate.swift in Sources */,
 				FB1646E8247CBEAD0092F083 /* DatabaseProtocol.swift in Sources */,
 				FB1646EC247CC7690092F083 /* User.swift in Sources */,
+				FB164721247E64EF0092F083 /* MapAnnotation.swift in Sources */,
 				FB1646EE247CC79B0092F083 /* Category.swift in Sources */,
 				FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */,
+				FB16471F247E0F610092F083 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

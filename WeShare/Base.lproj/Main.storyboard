@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8q5-Js-osH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vd2-bz-iIo">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -112,6 +112,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n6m-5u-u5r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1040.8" y="867.61619190404804"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="pYn-LI-SHH">
+            <objects>
+                <viewController id="WYK-IV-ZnT" customClass="MapViewController" customModule="WeShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JHa-RZ-bF9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FiV-vd-02W">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FiV-vd-02W" firstAttribute="trailing" secondItem="JHa-RZ-bF9" secondAttribute="trailing" id="84m-aG-mqT"/>
+                            <constraint firstItem="FiV-vd-02W" firstAttribute="leading" secondItem="JHa-RZ-bF9" secondAttribute="leading" id="Psf-6c-pDb"/>
+                            <constraint firstItem="FiV-vd-02W" firstAttribute="top" secondItem="JHa-RZ-bF9" secondAttribute="top" id="ap7-oz-Q5A"/>
+                            <constraint firstItem="FiV-vd-02W" firstAttribute="bottom" secondItem="JHa-RZ-bF9" secondAttribute="bottom" id="eqM-z4-yhr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GxK-0m-en1"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="map.fill" catalog="system" id="P71-j2-7jP"/>
+                    <connections>
+                        <outlet property="mapView" destination="FiV-vd-02W" id="5Xo-pm-kYU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dws-lf-njd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2617" y="1479"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="e9G-We-XsH">
+            <objects>
+                <viewController id="BPs-SO-HRI" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xOY-bE-Nmp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ITS-hC-pZ0"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="wMx-ZV-I4L"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7pg-bp-X3r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2617" y="816"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="bZB-XF-Krm">
+            <objects>
+                <tabBarController id="Vd2-bz-iIo" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pxZ-SS-1N6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BPs-SO-HRI" kind="relationship" relationship="viewControllers" id="8hF-Ta-TIE"/>
+                        <segue destination="WYK-IV-ZnT" kind="relationship" relationship="viewControllers" id="WGF-w7-YFj"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0P1-ZP-lwh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1667" y="1148"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIs-yu-xMp">
@@ -314,6 +378,8 @@
     <resources>
         <image name="facebook.minimal" width="47" height="47"/>
         <image name="google.minimal" width="47" height="47"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="per" width="128" height="128"/>
     </resources>
 </document>
