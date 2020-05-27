@@ -12,6 +12,7 @@ import MapKit
 class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDelegate, MKMapViewDelegate {
     var listenerType: ListenerType = .listings
     var locationManager: CLLocationManager = CLLocationManager()
+    weak var databaseController: DatabaseProtocol?
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -38,13 +39,49 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
 
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        // Do any additional setup after loading the view.
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
+        
+        // register class with identifier
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(MapAnnotation.self))
     }
+
     
     func onListingsChange(change: DatabaseChange, listings: [Listing]) {
-        //
+        print(listings.count)
+        listings.forEach { listing in
+            print(listing.desc!)
+            let annotation = MapAnnotation(title: listing.title!, subtitle: listing.desc!, lat: listing.location![0], lng: listing.location![1])
+            
+            mapView.addAnnotation(annotation)
+        }
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if ((annotation as? MapAnnotation) == nil) {
+            return nil
+        }
+        
+        let identifier = NSStringFromClass(MapAnnotation.self)
+        let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
+        if let markerAnnotationView = view as? MKMarkerAnnotationView {
+            
+            markerAnnotationView.glyphImage = UIImage(systemName: "house")
+
+            
+            markerAnnotationView.canShowCallout = true
+            markerAnnotationView.animatesWhenAdded = true
+            
+            markerAnnotationView.loadDescription(description: annotation.subtitle!!)
+            
+            let rightButton = UIButton(type: .detailDisclosure)
+            markerAnnotationView.rightCalloutAccessoryView = rightButton
+        }
+        
+        return view
+    }
 
     /*
     // MARK: - Navigation
@@ -59,11 +96,13 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationManager.startUpdatingLocation()
+        databaseController?.addListener(listener: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         locationManager.stopUpdatingLocation()
+        databaseController?.removeListener(listener: self)
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
@@ -74,3 +113,37 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
 
     
 }
+
+extension MKAnnotationView {
+
+    func loadDescription(description: String) {
+        
+        let customLines = description.components(separatedBy: CharacterSet.newlines)
+        
+        let stackView = self.stackView()
+        for line in customLines {
+            let label = UILabel()
+            label.font = UIFont.systemFont(ofSize: 12)
+            label.preferredMaxLayoutWidth = 30
+            label.text = line
+            stackView.addArrangedSubview(label)
+        }
+        self.detailCalloutAccessoryView = stackView
+    }
+
+
+
+    private func stackView() -> UIStackView {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        return stackView
+    }
+}
+
+
+// Locations
+// Monash University Clayton        [-37.910549, 145.136218]
+// 16 Koonawarra                    [-37.907716, 145.125412]
+// 71 Madeleine Road                [-37.920170, 145.118847]

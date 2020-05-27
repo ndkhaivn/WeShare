@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <FileRef
-      location = "group:/Users/ndkhaivn/Documents/WeShare/WeShare/Monash University Clayton.gpx">
-   </FileRef>
+   <Group
+      location = "container:"
+      name = "Locations">
+      <FileRef
+         location = "group:/Users/ndkhaivn/Documents/WeShare/WeShare/Monash University Clayton.gpx">
+      </FileRef>
+      <FileRef
+         location = "group:16 Koonawarra.gpx">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/ndkhaivn/Documents/WeShare/WeShare/71 Madeleine Road.gpx">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:monash.gpx">
    </FileRef>
