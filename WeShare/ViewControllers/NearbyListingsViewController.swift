@@ -69,7 +69,7 @@ extension NearbyListingsViewController: UITableViewDataSource, UITableViewDelega
         listingCell.listingTitle?.text = listing.title;
         
         let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
-        imageView.image = UIImage(systemName: listing.iconName!)
+        imageView.image = UIImage(systemName: (listing.category?.systemIcon!)!)
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = UIColor.systemOrange
     
