@@ -24,7 +24,7 @@ protocol DatabaseListener: AnyObject{
 
 protocol DatabaseProtocol: AnyObject {
     
-    func addListing() -> Listing
+    func addListing(listing: Listing) -> Listing
     
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)

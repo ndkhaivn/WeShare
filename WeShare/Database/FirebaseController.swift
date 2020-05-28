@@ -113,15 +113,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     // MARK:- Required Database Functions
     
-    func addListing() -> Listing {
-        
-        let listing = Listing()
-        listing.title = "Listing Title"
-        listing.address = "1 Koonawarra St, Clayton"
-        listing.desc = "Listing Description"
-        listing.quantity = 5
-        listing.unit = "pieces"
-        listing.category = Category(name: "household", systemIcon: "home")
+    func addListing(listing: Listing) -> Listing {
         
         do {
             if let listingRef = try listingsRef?.addDocument(from: listing) {

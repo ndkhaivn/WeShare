@@ -18,6 +18,7 @@ class Listing: NSObject, Codable {
     var desc: String?
     var iconName: String?
     var location: [Double]?
+    var imageURLs: [URL]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,5 +30,6 @@ class Listing: NSObject, Codable {
         case desc
         case iconName
         case location
+        case imageURLs
     }
 }
