@@ -9,5 +9,8 @@ target 'WeShare' do
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
   pod 'FirebaseFirestoreSwift'
+  pod "BSImagePicker", "~> 3.1"
+  pod 'SkyFloatingLabelTextField', '~> 3.0'
 end
