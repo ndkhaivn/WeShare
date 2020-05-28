@@ -86,7 +86,14 @@ extension NearbyListingsViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "listingDetailSegue", sender: nearbyListings[indexPath.row])
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "listingDetailSegue" {
+            let destination = segue.destination as! ListingDetailViewController
+            destination.listing = sender as? Listing
+        }
+    }
+
 }

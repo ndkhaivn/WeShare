@@ -34,7 +34,7 @@ class CategoriesTableViewController: UITableViewController {
         categories.append(Category(name: "Tools", systemIcon: "wrench.fill"))
         categories.append(Category(name: "Household appliance", systemIcon: "house.fill"))
         categories.append(Category(name: "Groceries", systemIcon: "cart.fill"))
-        categories.append(Category(name: "Clothing", systemIcon: "wrench.fill"))
+        categories.append(Category(name: "Clothing", systemIcon: "cube.box.fill"))
         categories.append(Category(name: "Help", systemIcon: "paperplane.fill"))
         categories.append(Category(name: "Books", systemIcon: "book.fill"))
         categories.append(Category(name: "Medical", systemIcon: "waveform.path.ecg"))

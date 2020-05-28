@@ -20,7 +20,6 @@ class LoginViewController: UIViewController, DatabaseListener {
     var listenerType: ListenerType = .listings
     
     @IBAction func loginButton(_ sender: Any) {
-        databaseController?.addListing()
     }
     
     

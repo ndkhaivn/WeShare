@@ -25,13 +25,14 @@
 		FB28285E24802E7400E114E5 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB28285D24802E7400E114E5 /* CategoriesTableViewController.swift */; };
 		FB28286124802EE200E114E5 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB28286024802EE200E114E5 /* CategoryCell.swift */; };
 		FB282863248036A700E114E5 /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB282862248036A700E114E5 /* FloatingLabelTextField.swift */; };
+		FB28286724805B8C00E114E5 /* ListingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB28286624805B8C00E114E5 /* ListingTableViewCell.swift */; };
+		FB28286924805C9B00E114E5 /* ListingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB28286824805C9B00E114E5 /* ListingDetailViewController.swift */; };
 		FB714F2D2476E267007FFFA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F2C2476E267007FFFA9 /* AppDelegate.swift */; };
 		FB714F2F2476E267007FFFA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */; };
 		FB714F312476E267007FFFA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F302476E267007FFFA9 /* ViewController.swift */; };
 		FB714F342476E267007FFFA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB714F322476E267007FFFA9 /* Main.storyboard */; };
 		FB714F362476E26B007FFFA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB714F352476E26B007FFFA9 /* Assets.xcassets */; };
 		FB714F392476E26B007FFFA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB714F372476E26B007FFFA9 /* LaunchScreen.storyboard */; };
-		FB714F43247752E0007FFFA9 /* ListingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714F42247752E0007FFFA9 /* ListingTableViewCell.swift */; };
 		FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,8 @@
 		FB28285D24802E7400E114E5 /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
 		FB28286024802EE200E114E5 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		FB282862248036A700E114E5 /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
+		FB28286624805B8C00E114E5 /* ListingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewCell.swift; sourceTree = "<group>"; };
+		FB28286824805C9B00E114E5 /* ListingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDetailViewController.swift; sourceTree = "<group>"; };
 		FB714F292476E267007FFFA9 /* WeShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB714F2C2476E267007FFFA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB714F2E2476E267007FFFA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +67,6 @@
 		FB714F352476E26B007FFFA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB714F382476E26B007FFFA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB714F3A2476E26B007FFFA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FB714F42247752E0007FFFA9 /* ListingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewCell.swift; sourceTree = "<group>"; };
 		FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyListingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,11 +131,12 @@
 		FB1646F3247D29610092F083 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */,
 				FB113A19247B658400CC924D /* LoginViewController.swift */,
-				FB16471E247E0F610092F083 /* MapViewController.swift */,
+				FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */,
+				FB28286824805C9B00E114E5 /* ListingDetailViewController.swift */,
 				FB282853247FF29700E114E5 /* NewListingViewController.swift */,
 				FB28285D24802E7400E114E5 /* CategoriesTableViewController.swift */,
+				FB16471E247E0F610092F083 /* MapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -157,8 +160,8 @@
 		FB28285F24802EB900E114E5 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				FB714F42247752E0007FFFA9 /* ListingTableViewCell.swift */,
 				FB28286024802EE200E114E5 /* CategoryCell.swift */,
+				FB28286624805B8C00E114E5 /* ListingTableViewCell.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -325,7 +328,6 @@
 				FB1646EA247CC75D0092F083 /* Listing.swift in Sources */,
 				FB714F312476E267007FFFA9 /* ViewController.swift in Sources */,
 				FB1646E6247CBE8F0092F083 /* MulticastDelegate.swift in Sources */,
-				FB714F43247752E0007FFFA9 /* ListingTableViewCell.swift in Sources */,
 				FB714F2D2476E267007FFFA9 /* AppDelegate.swift in Sources */,
 				FB28285C24802E0F00E114E5 /* PickCategoryDelegate.swift in Sources */,
 				FB1646A6247B75A10092F083 /* TextFieldExtensions.swift in Sources */,
@@ -337,8 +339,10 @@
 				FB164721247E64EF0092F083 /* MapAnnotation.swift in Sources */,
 				FB1646EE247CC79B0092F083 /* Category.swift in Sources */,
 				FB28286124802EE200E114E5 /* CategoryCell.swift in Sources */,
+				FB28286924805C9B00E114E5 /* ListingDetailViewController.swift in Sources */,
 				FB282863248036A700E114E5 /* FloatingLabelTextField.swift in Sources */,
 				FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */,
+				FB28286724805B8C00E114E5 /* ListingTableViewCell.swift in Sources */,
 				FB16471F247E0F610092F083 /* MapViewController.swift in Sources */,
 				FB28285E24802E7400E114E5 /* CategoriesTableViewController.swift in Sources */,
 			);
