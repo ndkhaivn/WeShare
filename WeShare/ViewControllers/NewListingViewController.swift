@@ -11,8 +11,9 @@ import BSImagePicker
 import Photos
 import SkyFloatingLabelTextField
 import FirebaseStorage
+import SearchTextField
 
-class NewListingViewController: UIViewController, UITextFieldDelegate, PickCategoryDelegate {
+class NewListingViewController: UIViewController, PickCategoryDelegate {
 
     weak var databaseController: DatabaseProtocol?
     
@@ -25,11 +26,12 @@ class NewListingViewController: UIViewController, UITextFieldDelegate, PickCateg
     @IBOutlet weak var imageStack: UIStackView!
     @IBOutlet weak var addImageButton: UIButton!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var quantityField: UITextField!
     @IBOutlet weak var unitField: UITextField!
-    @IBOutlet weak var addressField: UITextField!
+    @IBOutlet weak var addressField: SearchTextField!
     @IBOutlet weak var descriptionField: UITextField!
     
     override func viewDidLoad() {
@@ -50,12 +52,15 @@ class NewListingViewController: UIViewController, UITextFieldDelegate, PickCateg
         unitField.delegate = self
         addressField.delegate = self
         descriptionField.delegate = self
+        
+        addressField.filterStrings(["Red", "Blue", "Yellow"])
+        
+        scrollView.delegate = self
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
+    @IBAction func pickLocation(_ sender: Any) {
     }
+
     
     @IBAction func pickImages(_ sender: Any) {
         
@@ -163,6 +168,27 @@ class NewListingViewController: UIViewController, UITextFieldDelegate, PickCateg
             categoryPicker.pickCategoryDelegate = self
         }
     }
-    
+}
 
+extension NewListingViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        addressField.hideResultsList()
+    }
+}
+
+extension NewListingViewController: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField.accessibilityIdentifier == "category" {
+            performSegue(withIdentifier: "pickCategorySegue", sender: nil)
+            return false
+        }
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }

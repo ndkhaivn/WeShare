@@ -14,13 +14,8 @@ class LoginViewController: UIViewController, DatabaseListener {
     @IBOutlet weak var passwordField: UITextField!
     weak var databaseController: DatabaseProtocol?
     
-//        databaseController?.addListing()
-    
-    
     var listenerType: ListenerType = .listings
     
-    @IBAction func loginButton(_ sender: Any) {
-    }
     
     
     func onListingsChange(change: DatabaseChange, listings: [Listing]) {
@@ -31,6 +26,7 @@ class LoginViewController: UIViewController, DatabaseListener {
         super.viewDidLoad()
 
         emailField.setLeftIcon(systemName: "person")
+        passwordField.setLeftIcon(systemName: "lock")
         
         
         

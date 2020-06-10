@@ -13,10 +13,18 @@ class ListingDetailViewController: UIViewController {
 
     var listing: Listing?
     @IBOutlet weak var imagesView: UIScrollView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressText: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        titleLabel.text = listing?.title!
+        progressText.text = "\(listing?.quantity! ?? 0) raised of \(listing?.quantity! ?? 0) \(listing?.unit! ?? "")"
+        descriptionLabel.text = listing?.desc
         
         imagesView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 211)
         imagesView.contentSize = CGSize(width: view.frame.width * CGFloat((listing?.imageURLs?.count)!), height: 211)

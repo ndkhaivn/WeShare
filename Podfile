@@ -13,4 +13,6 @@ target 'WeShare' do
   pod 'FirebaseFirestoreSwift'
   pod "BSImagePicker", "~> 3.1"
   pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'LocationPicker'
+  pod "SearchTextField"
 end

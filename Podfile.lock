@@ -340,12 +340,14 @@ PODS:
   - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.4.0)
   - leveldb-library (1.22)
+  - LocationPicker (1.4.2)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.8)
+  - SearchTextField (1.2.4)
   - SkyFloatingLabelTextField (3.8.0)
 
 DEPENDENCIES:
@@ -355,6 +357,8 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Storage
   - FirebaseFirestoreSwift
+  - LocationPicker
+  - SearchTextField
   - SkyFloatingLabelTextField (~> 3.0)
 
 SPEC REPOS:
@@ -381,8 +385,10 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - leveldb-library
+    - LocationPicker
     - nanopb
     - PromisesObjC
+    - SearchTextField
     - SkyFloatingLabelTextField
 
 SPEC CHECKSUMS:
@@ -408,10 +414,12 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  LocationPicker: 9af49409ec3ca13fdf4bf6b39e1a3c7dec029f4a
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
 
-PODFILE CHECKSUM: 33195c5aadd429c516354d03141c7e7192b4ba96
+PODFILE CHECKSUM: a0a9091c0d10ac2a26bc901111960814f6602dff
 
 COCOAPODS: 1.9.1
