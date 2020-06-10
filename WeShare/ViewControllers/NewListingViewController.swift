@@ -12,6 +12,7 @@ import Photos
 import SkyFloatingLabelTextField
 import FirebaseStorage
 import SearchTextField
+import MapKit
 
 class NewListingViewController: UIViewController, PickCategoryDelegate {
 
@@ -33,6 +34,9 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     @IBOutlet weak var unitField: UITextField!
     @IBOutlet weak var addressField: SearchTextField!
     @IBOutlet weak var descriptionField: UITextField!
+    
+    var searchCompleter = MKLocalSearchCompleter()
+    var searchResults = [MKLocalSearchCompletion]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +60,19 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         addressField.filterStrings(["Red", "Blue", "Yellow"])
         
         scrollView.delegate = self
+        
+        searchCompleter.delegate = self
+        // TODO: Change region (hardcoded Monash Uni)
+        searchCompleter.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: -37.910549, longitude: 145.136218), latitudinalMeters: 10000, longitudinalMeters: 10000)
+        
+        addressField.userStoppedTypingHandler = {
+            if let criteria = self.addressField.text {
+                if criteria.count > 1 {
+                    print(criteria)
+                    self.searchCompleter.queryFragment = criteria
+                }
+            }
+        }
     }
     
     @IBAction func pickLocation(_ sender: Any) {
@@ -190,5 +207,12 @@ extension NewListingViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
+    }
+}
+
+extension NewListingViewController: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults = completer.results
+        print(searchResults)
     }
 }
