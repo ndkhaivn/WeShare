@@ -6,6 +6,9 @@
 //  Copyright © 2020 Monash University. All rights reserved.
 //
 
+import Promises
+import Firebase
+
 enum DatabaseChange {
     case add
     case remove
@@ -27,6 +30,9 @@ protocol DatabaseProtocol: AnyObject {
     func addListing(listing: Listing) -> Listing
     
     func addListener(listener: DatabaseListener)
+    
+    func getUser(uid: String) -> Promise<User>
+    func getUserReference(uid: String) -> Promise<DocumentReference>
     
     func signIn(email: String, password: String, completion: @escaping (Bool) -> Void)
     

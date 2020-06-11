@@ -13,6 +13,8 @@ import SkyFloatingLabelTextField
 import FirebaseStorage
 import SearchTextField
 import MapKit
+import Firebase
+import Promises
 
 class NewListingViewController: UIViewController, PickCategoryDelegate {
 
@@ -36,7 +38,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     @IBOutlet weak var descriptionField: UITextField!
     
     var searchCompleter = MKLocalSearchCompleter()
-    var searchResults = [MKLocalSearchCompletion]()
+    var searchResults = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +58,6 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         unitField.delegate = self
         addressField.delegate = self
         descriptionField.delegate = self
-        
-        addressField.filterStrings(["Red", "Blue", "Yellow"])
         
         scrollView.delegate = self
         
@@ -114,42 +114,42 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         })
     }
     
-    func uploadImages() -> [URL] {
+    func uploadImages() -> Promise<[URL]> {
         
         var downloadURLs: [URL] = []
         
         let storage = Storage.storage()
         let storageRef = storage.reference()
         
-        imagesPNG.forEach { imageData in
-            
-            let fileName = NSUUID().uuidString
-            print(fileName)
-            let uploadRef = storageRef.child("images/\(fileName).png")
-            
-            _ = uploadRef.putData(imageData, metadata: nil) { metadata, error in
-                guard metadata != nil else {
-                    print("Error uploading images")
-                    return
-                }
+        return Promise { fulfill, reject in
+            self.imagesPNG.forEach { imageData in
                 
-                uploadRef.downloadURL { (url, error) in
-                    guard let downloadURL = url else {
-                        print("Error getting downloadURL")
-                        return
+                let fileName = NSUUID().uuidString
+                print(fileName)
+                let uploadRef = storageRef.child("images/\(fileName).png")
+                
+                _ = uploadRef.putData(imageData, metadata: nil) { metadata, error in
+                    if metadata == nil {
+                        print("Error uploading images")
+                        reject(error!)
                     }
-                    downloadURLs.append(downloadURL)
                     
-                    if (downloadURLs.count == self.imagesPNG.count) { // all images have been uploaded, add listing now
-                        self.newListing.imageURLs = downloadURLs
+                    uploadRef.downloadURL { (url, error) in
+                        guard let downloadURL = url else {
+                            print("Error getting downloadURL")
+                            reject(error!)
+                            return
+                        }
+                        downloadURLs.append(downloadURL)
                         
-                        let _ = self.databaseController?.addListing(listing: self.newListing)
-                        self.navigationController?.popViewController(animated: true)
+                        if (downloadURLs.count == self.imagesPNG.count) { // all images have been uploaded, add listing now
+                            self.newListing.imageURLs = downloadURLs
+                            fulfill(downloadURLs)
+                        }
                     }
                 }
             }
         }
-        return downloadURLs
     }
     
     @IBAction func saveListing(_ sender: Any) {
@@ -160,14 +160,31 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
         spinner.startAnimating()
         
-        _ = uploadImages()
+//        uploadImages().then { urls in
+//            return self.databaseController?.getUser(uid: Auth.auth().currentUser!.uid)
+//        }.then { (user) in
+//            user.
+//        }
+//
+//        work1("10").then { string in
+//            return self.work2(string)
+//        }.then { number in
+//            return self.work3(number)
+//        }.then { number in
+//          print(number)  // 100
+//        }
         
-        newListing.title = titleField.text
-        newListing.quantity = Int(quantityField.text!)
-        newListing.unit = unitField.text
-        newListing.address = addressField.text
-        newListing.desc = descriptionField.text
-    
+        
+        uploadImages().then { (urls) in
+            self.newListing.imageURLs = urls
+            self.newListing.title = self.titleField.text
+            self.newListing.quantity = Int(self.quantityField.text!)
+            self.newListing.unit = self.unitField.text
+            self.newListing.address = self.addressField.text
+            self.newListing.desc = self.descriptionField.text
+            self.databaseController?.addListing(listing: self.newListing)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     func pickCategory(category: Category) {
@@ -212,7 +229,10 @@ extension NewListingViewController: UITextFieldDelegate {
 
 extension NewListingViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
+        searchResults = completer.results.map{ $0.title + " " + $0.subtitle }
+        
+        addressField.filterStrings(searchResults)
+        
         print(searchResults)
     }
 }

@@ -9,15 +9,15 @@
 import Foundation
 
 class User: NSObject, Codable {
-    var id: String?
+    var uid: String?
     var name: String?
     var phoneNo: String?
-    var avatar: URL?
+    var avatarURL: URL?
     
     enum CodingKeys: String, CodingKey {
-        case id
+        case uid
         case name
         case phoneNo
-        case avatar
+        case avatarURL
     }
 }

@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Promises
 
 class FirebaseController: NSObject, DatabaseProtocol {
     
@@ -39,6 +40,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             self.parseListingsSnapshot(snapshot: querySnapshot)
         }
+    }
+    
+    func setUpUsers() {
+        usersRef = database.collection("users")
     }
 
     
@@ -109,17 +114,55 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func addListing(listing: Listing) -> Listing {
         
-        do {
-            if let listingRef = try listingsRef?.addDocument(from: listing) {
-                listing.id = listingRef.documentID
+        self.getUserReference(uid: (Auth.auth().currentUser?.uid)!).then { userRef in
+         
+            do {
+                if let listingRef = try self.listingsRef?.addDocument(from: listing) {
+                    listingRef.updateData(["host": userRef ])
+                    listing.id = listingRef.documentID
+                }
+            } catch {
+                print("Failed to serialize listing")
             }
-        } catch {
-            print("Failed to serialize listing")
+            
         }
         
         return listing
     }
     
+    func getUser(uid: String) -> Promise<User> {
+        // TODO: user with uid not found
+        return Promise { fulfill, reject in
+            self.usersRef?.whereField("uid", isEqualTo: uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting user with uid \(uid): \(err)")
+                    reject(err)
+                } else {
+                    do {
+                        print("fetched user \(uid)")
+                        fulfill((try querySnapshot?.documents[0].data(as: User.self))!)
+                    } catch let error {
+                        print("Error decoding user")
+                        reject(error)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getUserReference(uid: String) -> Promise<DocumentReference> {
+        // TODO: user with uid not found
+        return Promise { fulfill, reject in
+            self.usersRef?.whereField("uid", isEqualTo: uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting user with uid \(uid): \(err)")
+                    reject(err)
+                } else {
+                    fulfill((querySnapshot?.documents[0].reference)!)
+                }
+            }
+        }
+    }
     
     func signIn(email: String, password: String, completion: @escaping (Bool) -> Void){
         authController.signIn(withEmail: email, password: password) { (authResult, error) in
@@ -129,6 +172,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             print("Login successfully")
             self.setUpListingListener()
+            self.setUpUsers()
             completion(true)
         }
     }
