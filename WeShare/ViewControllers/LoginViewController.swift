@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController, DatabaseListener {
 
@@ -15,9 +16,7 @@ class LoginViewController: UIViewController, DatabaseListener {
     weak var databaseController: DatabaseProtocol?
     
     var listenerType: ListenerType = .listings
-    
-    
-    
+
     func onListingsChange(change: DatabaseChange, listings: [Listing]) {
         print(listings)
     }
@@ -28,12 +27,10 @@ class LoginViewController: UIViewController, DatabaseListener {
         emailField.setLeftIcon(systemName: "person")
         passwordField.setLeftIcon(systemName: "lock")
         
-        
+        self.modalPresentationStyle = .fullScreen
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-
-        
         
         // Do any additional setup after loading the view.
     }
@@ -48,6 +45,21 @@ class LoginViewController: UIViewController, DatabaseListener {
         databaseController?.removeListener(listener: self)
     }
 
+    @IBAction func login(_ sender: Any) {
+        let email = emailField.text!
+        let password = passwordField.text!
+        
+        databaseController?.signIn(email: email, password: password) { loginStatus in
+            if (!loginStatus) {
+                let errorMessage = "Incorrect email or password. \nPlease try again."
+                let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                self.performSegue(withIdentifier: "loginSuccessfully", sender: nil)
+            }
+        }
+    }
     
     /*
     // MARK: - Navigation

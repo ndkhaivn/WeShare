@@ -6,7 +6,18 @@
 //  Copyright © 2020 Monash University. All rights reserved.
 //
 
-class User: Codable {
+import Foundation
+
+class User: NSObject, Codable {
+    var id: String?
     var name: String?
-    var phone: String?
+    var phoneNo: String?
+    var avatar: URL?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case phoneNo
+        case avatar
+    }
 }

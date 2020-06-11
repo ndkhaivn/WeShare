@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vd2-bz-iIo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zp0-Xy-fv5">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -26,6 +26,7 @@
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kh3-V2-UEt">
                                 <rect key="frame" x="87.5" y="328" width="200" height="34"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
@@ -38,6 +39,9 @@
                                 </constraints>
                                 <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="login:" destination="Zp0-Xy-fv5" eventType="touchUpInside" id="wh6-fj-dCd"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-Av-neM">
                                 <rect key="frame" x="126" y="382" width="123" height="30"/>
@@ -100,6 +104,7 @@
                     <connections>
                         <outlet property="emailField" destination="SZA-xx-ehq" id="2Sk-Cd-Vw0"/>
                         <outlet property="passwordField" destination="Kh3-V2-UEt" id="mEv-f3-hY2"/>
+                        <segue destination="Vd2-bz-iIo" kind="presentation" identifier="loginSuccessfully" modalPresentationStyle="fullScreen" id="XNT-wl-ycZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n6m-5u-u5r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -436,6 +441,7 @@
         <scene sceneID="bZB-XF-Krm">
             <objects>
                 <tabBarController id="Vd2-bz-iIo" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fT5-xP-BEE"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pxZ-SS-1N6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -453,7 +459,7 @@
         <!--Listing Detail View Controller-->
         <scene sceneID="hIs-yu-xMp">
             <objects>
-                <viewController id="oYs-O4-zz7" customClass="ListingDetailViewController" customModule="WeShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="oYs-O4-zz7" customClass="ListingDetailViewController" customModule="WeShare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="25g-2B-wzW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -27,5 +27,8 @@ protocol DatabaseProtocol: AnyObject {
     func addListing(listing: Listing) -> Listing
     
     func addListener(listener: DatabaseListener)
+    
+    func signIn(email: String, password: String, completion: @escaping (Bool) -> Void)
+    
     func removeListener(listener: DatabaseListener)
 }

@@ -12,10 +12,12 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
+    
     var listeners = MulticastDelegate<DatabaseListener>()
     var authController: Auth
     var database: Firestore
     var listingsRef: CollectionReference?
+    var usersRef: CollectionReference?
     var listings: [Listing]
     
     override init() {
@@ -25,18 +27,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listings = [Listing]()
         
         super.init()
-        
-        authController.signInAnonymously() { (authResult, error) in
-            guard authResult != nil else {
-                fatalError("Firebase authentication failed")
-            }
-            self.setUpListingListener()
-        }
     }
     
     // MARK:- Setup code for Firestore listeners
     func setUpListingListener() {
-        print("setting up")
         listingsRef = database.collection("listings")
         listingsRef?.addSnapshotListener { (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
@@ -46,7 +40,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             self.parseListingsSnapshot(snapshot: querySnapshot)
         }
     }
-    
+
     
     // MARK:- Parse Functions for Firebase Firestore responses
     func parseListingsSnapshot(snapshot: QuerySnapshot) {
@@ -124,6 +118,19 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         
         return listing
+    }
+    
+    
+    func signIn(email: String, password: String, completion: @escaping (Bool) -> Void){
+        authController.signIn(withEmail: email, password: password) { (authResult, error) in
+            guard authResult != nil else {
+                completion(false)
+                return
+            }
+            print("Login successfully")
+            self.setUpListingListener()
+            completion(true)
+        }
     }
     
     func addListener(listener: DatabaseListener) {
