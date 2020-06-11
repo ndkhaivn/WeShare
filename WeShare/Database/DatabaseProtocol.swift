@@ -31,7 +31,9 @@ protocol DatabaseProtocol: AnyObject {
     
     func addListener(listener: DatabaseListener)
     
-    func getUser(uid: String) -> Promise<User>
+    func getUser(withUID uid: String) -> Promise<User>
+    func getUser(withID id: String) -> Promise<User>
+    
     func getUserReference(uid: String) -> Promise<DocumentReference>
     
     func signIn(email: String, password: String, completion: @escaping (Bool) -> Void)

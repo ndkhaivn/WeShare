@@ -38,8 +38,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     @IBOutlet weak var descriptionField: UITextField!
     
     var searchCompleter = MKLocalSearchCompleter()
-    var searchResults = [String]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,6 +69,19 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
                 if criteria.count > 1 {
                     print(criteria)
                     self.searchCompleter.queryFragment = criteria
+                }
+            }
+        }
+        addressField.itemSelectionHandler = { filteredResults, itemPosition in
+            let item = filteredResults[itemPosition] as! AddressSuggestion
+            self.addressField.text = item.title
+            
+            let searchRequest = MKLocalSearch.Request(completion: item.completion!)
+            let search = MKLocalSearch(request: searchRequest)
+            search.start { (response, error) in
+                if error == nil {
+                    let coordinate = response?.mapItems[0].placemark.coordinate
+                    self.newListing.location = [(coordinate?.latitude)!, (coordinate?.longitude)!]
                 }
             }
         }
@@ -160,21 +172,6 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
         spinner.startAnimating()
         
-//        uploadImages().then { urls in
-//            return self.databaseController?.getUser(uid: Auth.auth().currentUser!.uid)
-//        }.then { (user) in
-//            user.
-//        }
-//
-//        work1("10").then { string in
-//            return self.work2(string)
-//        }.then { number in
-//            return self.work3(number)
-//        }.then { number in
-//          print(number)  // 100
-//        }
-        
-        
         uploadImages().then { (urls) in
             self.newListing.imageURLs = urls
             self.newListing.title = self.titleField.text
@@ -182,7 +179,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
             self.newListing.unit = self.unitField.text
             self.newListing.address = self.addressField.text
             self.newListing.desc = self.descriptionField.text
-            self.databaseController?.addListing(listing: self.newListing)
+            _ = self.databaseController?.addListing(listing: self.newListing)
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -229,10 +226,9 @@ extension NewListingViewController: UITextFieldDelegate {
 
 extension NewListingViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results.map{ $0.title + " " + $0.subtitle }
         
-        addressField.filterStrings(searchResults)
+        let suggestions = completer.results.map { AddressSuggestion(title: $0.title + ", " + $0.subtitle, completion: $0 ) }
         
-        print(searchResults)
+        addressField.filterItems(suggestions)
     }
 }

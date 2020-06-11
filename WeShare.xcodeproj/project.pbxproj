@@ -34,6 +34,7 @@
 		FB714F362476E26B007FFFA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB714F352476E26B007FFFA9 /* Assets.xcassets */; };
 		FB714F392476E26B007FFFA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB714F372476E26B007FFFA9 /* LaunchScreen.storyboard */; };
 		FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */; };
+		FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9624927D6300808865 /* AddressSuggestion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		FB714F382476E26B007FFFA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB714F3A2476E26B007FFFA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyListingsViewController.swift; sourceTree = "<group>"; };
+		FBF13D9624927D6300808865 /* AddressSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				FB1646A5247B75A10092F083 /* TextFieldExtensions.swift */,
 				FB282862248036A700E114E5 /* FloatingLabelTextField.swift */,
+				FBF13D9624927D6300808865 /* AddressSuggestion.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				FB1646EC247CC7690092F083 /* User.swift in Sources */,
 				FB282854247FF29700E114E5 /* NewListingViewController.swift in Sources */,
 				FB164721247E64EF0092F083 /* MapAnnotation.swift in Sources */,
+				FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */,
 				FB1646EE247CC79B0092F083 /* Category.swift in Sources */,
 				FB28286124802EE200E114E5 /* CategoryCell.swift in Sources */,
 				FB28286924805C9B00E114E5 /* ListingDetailViewController.swift in Sources */,

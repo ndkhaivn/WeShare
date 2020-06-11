@@ -347,6 +347,8 @@ PODS:
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.8)
+  - PromisesSwift (1.2.8):
+    - PromisesObjC (= 1.2.8)
   - SearchTextField (1.2.4)
   - SkyFloatingLabelTextField (3.8.0)
 
@@ -358,6 +360,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseFirestoreSwift
   - LocationPicker
+  - PromisesSwift
   - SearchTextField
   - SkyFloatingLabelTextField (~> 3.0)
 
@@ -388,6 +391,7 @@ SPEC REPOS:
     - LocationPicker
     - nanopb
     - PromisesObjC
+    - PromisesSwift
     - SearchTextField
     - SkyFloatingLabelTextField
 
@@ -417,9 +421,10 @@ SPEC CHECKSUMS:
   LocationPicker: 9af49409ec3ca13fdf4bf6b39e1a3c7dec029f4a
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
 
-PODFILE CHECKSUM: a0a9091c0d10ac2a26bc901111960814f6602dff
+PODFILE CHECKSUM: 6319b233a36378f80fb38be151314634284956d0
 
 COCOAPODS: 1.9.1

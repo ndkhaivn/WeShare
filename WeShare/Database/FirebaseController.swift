@@ -51,9 +51,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func parseListingsSnapshot(snapshot: QuerySnapshot) {
 
         snapshot.documentChanges.forEach { (change) in
-            let listingID = change.document.documentID
             
             var parsedListing: Listing?
+            
+            let listingID = change.document.documentID
+            
+            if let hostRef = change.document.data()["host"] as? DocumentReference {
+                
+                getUser(withID: hostRef.documentID).then { (user) in
+                    parsedListing!.host = user
+                }
+            }
             
             do {
                 parsedListing = try change.document.data(as: Listing.self)
@@ -130,7 +138,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return listing
     }
     
-    func getUser(uid: String) -> Promise<User> {
+    func getUser(withUID uid: String) -> Promise<User> {
         // TODO: user with uid not found
         return Promise { fulfill, reject in
             self.usersRef?.whereField("uid", isEqualTo: uid).getDocuments() { (querySnapshot, err) in
@@ -141,6 +149,26 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     do {
                         print("fetched user \(uid)")
                         fulfill((try querySnapshot?.documents[0].data(as: User.self))!)
+                    } catch let error {
+                        print("Error decoding user")
+                        reject(error)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getUser(withID id: String) -> Promise<User> {
+        return Promise { fulfill, reject in
+            self.usersRef?.document(id).getDocument { (document, err) in
+                if let err = err {
+                    print("Error getting user with id \(id): \(err)")
+                    reject(err)
+                } else {
+                    
+                    do {
+                        fulfill((try document!.data(as: User.self))!)
+                        print("fetched user \(id)")
                     } catch let error {
                         print("Error decoding user")
                         reject(error)

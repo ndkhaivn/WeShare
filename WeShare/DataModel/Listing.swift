@@ -32,6 +32,5 @@ class Listing: NSObject, Codable {
         case iconName
         case location
         case imageURLs
-        case host
     }
 }

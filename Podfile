@@ -14,5 +14,6 @@ target 'WeShare' do
   pod "BSImagePicker", "~> 3.1"
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'LocationPicker'
-  pod "SearchTextField"
+  pod 'SearchTextField'
+  pod 'PromisesSwift'
 end
