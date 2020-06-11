@@ -135,11 +135,12 @@
                     <tabBarItem key="tabBarItem" title="Map" image="map.fill" catalog="system" id="P71-j2-7jP"/>
                     <connections>
                         <outlet property="mapView" destination="FiV-vd-02W" id="5Xo-pm-kYU"/>
+                        <segue destination="oYs-O4-zz7" kind="show" identifier="listingDetailSegue" id="BlV-qR-zLI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dws-lf-njd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2617" y="1601"/>
+            <point key="canvasLocation" x="2607" y="885"/>
         </scene>
         <!--Home-->
         <scene sceneID="e9G-We-XsH">
@@ -209,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7pg-bp-X3r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3556" y="932.38380809595208"/>
+            <point key="canvasLocation" x="3689" y="1098"/>
         </scene>
         <!--New Listing-->
         <scene sceneID="y7L-9F-CUe">
@@ -382,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhl-tG-KhE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4919.1999999999998" y="884.70764617691157"/>
+            <point key="canvasLocation" x="4886" y="508"/>
         </scene>
         <!--Category-->
         <scene sceneID="pTM-hD-n1L">
@@ -435,7 +436,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="la4-I8-EtF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5786.3999999999996" y="887.40629685157433"/>
+            <point key="canvasLocation" x="5868" y="508"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="bZB-XF-Krm">
@@ -636,7 +637,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fg7-Zf-4f8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3688.8000000000002" y="137.18140929535232"/>
+            <point key="canvasLocation" x="5639" y="1382"/>
         </scene>
         <!--Nearby Listings-->
         <scene sceneID="pDC-ZG-1dB">
@@ -725,7 +726,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I6h-RU-FkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2850.4000000000001" y="137.18140929535232"/>
+            <point key="canvasLocation" x="4654" y="1383"/>
         </scene>
         <!--Home-->
         <scene sceneID="bwY-bS-knp">
@@ -744,9 +745,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oFh-xo-J84" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2616.8000000000002" y="932.38380809595208"/>
+            <point key="canvasLocation" x="2607" y="1558"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="QkR-lf-Kb4"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="WeShare" width="352" height="313"/>
         <image name="avatar" width="720" height="720"/>

@@ -14,11 +14,13 @@ class MapAnnotation: NSObject, MKAnnotation {
     var title: String?
     var subtitle: String?
     var systemIconName: String?
+    var listing: Listing?
     
-    init(title: String, subtitle: String, lat: Double, lng: Double, iconName: String) {
+    init(title: String, subtitle: String, lat: Double, lng: Double, iconName: String, listing: Listing) {
         self.title = title
         self.subtitle = subtitle
         self.systemIconName = iconName
         coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        self.listing = listing
     }
 }

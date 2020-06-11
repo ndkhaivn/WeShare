@@ -25,6 +25,8 @@ class ListingDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        descriptionLabel.sizeToFit()
+        
         titleLabel.text = listing?.title!
         progressText.text = "\(listing?.quantity! ?? 0) raised of \(listing?.quantity! ?? 0) \(listing?.unit! ?? "")"
         descriptionLabel.text = listing?.desc

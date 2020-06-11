@@ -56,7 +56,8 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
         
         listings.forEach { listing in
             print(listing.desc!)
-            let annotation = MapAnnotation(title: listing.title!, subtitle: listing.desc!, lat: listing.location![0], lng: listing.location![1], iconName: (listing.category?.systemIcon!)!)
+            let annotation = MapAnnotation(title: listing.title!, subtitle: listing.desc!, lat: listing.location![0], lng: listing.location![1], iconName: (listing.category?.systemIcon!)!, listing: listing)
+            
             
             mapView.addAnnotation(annotation)
             allAnnotations.append(annotation)
@@ -90,15 +91,15 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
         return view
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "listingDetailSegue" {
+            let destination = segue.destination as! ListingDetailViewController
+            destination.listing = sender as? Listing
+        }
     }
-    */
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -118,6 +119,13 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
         mapView.setRegion(region, animated: true)
     }
 
+    // Called when user tap on right detail button
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let annotation = view.annotation as? MapAnnotation {
+            
+            performSegue(withIdentifier: "listingDetailSegue", sender: annotation.listing)
+        }
+    }
     
 }
 
@@ -148,7 +156,6 @@ extension MKAnnotationView {
         return stackView
     }
 }
-
 
 // Locations
 // Monash University Clayton        [-37.910549, 145.136218]
