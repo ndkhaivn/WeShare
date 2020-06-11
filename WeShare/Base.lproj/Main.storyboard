@@ -503,6 +503,44 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="xus-ZF-6yC">
+                                <rect key="frame" x="101" y="604.5" width="258" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxR-gU-SkP">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="zJd-Nf-ENL"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Call"/>
+                                        <connections>
+                                            <action selector="callHost:" destination="oYs-O4-zz7" eventType="touchUpInside" id="kBA-fX-RdE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lc6-L9-mez">
+                                        <rect key="frame" x="94" y="0.0" width="70" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="ZIn-Pe-dvs"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="SMS"/>
+                                        <connections>
+                                            <action selector="smsHost:" destination="oYs-O4-zz7" eventType="touchUpInside" id="DeK-ML-H3u"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpN-Uf-bLR">
+                                        <rect key="frame" x="188" y="0.0" width="70" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="Cjz-Rm-7Lp"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Chat"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oqv-Y6-hTP">
                                 <rect key="frame" x="0.0" y="44" width="375" height="211"/>
                                 <constraints>
@@ -530,38 +568,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="xus-ZF-6yC">
-                                <rect key="frame" x="101" y="604.5" width="258" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxR-gU-SkP">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="zJd-Nf-ENL"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Call"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lc6-L9-mez">
-                                        <rect key="frame" x="94" y="0.0" width="70" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="ZIn-Pe-dvs"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="SMS"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpN-Uf-bLR">
-                                        <rect key="frame" x="188" y="0.0" width="70" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="Cjz-Rm-7Lp"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Chat"/>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSA-Oo-khg">
+                                <rect key="frame" x="293.5" y="271" width="65.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.marker" translatesAutoresizingMaskIntoConstraints="NO" id="9r4-mL-brd">
+                                <rect key="frame" x="269.5" y="271" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="GK9-cR-JPo"/>
+                                    <constraint firstAttribute="width" constant="20" id="zkG-O0-2st"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -572,6 +591,7 @@
                             <constraint firstItem="jAP-78-1hJ" firstAttribute="trailing" secondItem="25g-2B-wzW" secondAttribute="trailingMargin" id="GTW-sq-DLQ"/>
                             <constraint firstItem="xus-ZF-6yC" firstAttribute="leading" secondItem="Pzz-s9-nTl" secondAttribute="trailing" constant="20" id="Ggi-hI-NbM"/>
                             <constraint firstItem="2VG-b9-sXp" firstAttribute="trailing" secondItem="CLH-g9-0Pe" secondAttribute="trailing" constant="16" id="JU4-1t-uVA"/>
+                            <constraint firstItem="2VG-b9-sXp" firstAttribute="trailing" secondItem="BSA-Oo-khg" secondAttribute="trailing" constant="16" id="MIF-PW-EMH"/>
                             <constraint firstItem="dqe-6l-7zx" firstAttribute="top" secondItem="w95-Dh-4Kg" secondAttribute="bottom" constant="5" id="Nqa-ve-bRe"/>
                             <constraint firstItem="jAP-78-1hJ" firstAttribute="leading" secondItem="25g-2B-wzW" secondAttribute="leadingMargin" id="SEB-E9-11Z"/>
                             <constraint firstItem="W5g-Et-4Vd" firstAttribute="leading" secondItem="2VG-b9-sXp" secondAttribute="leading" constant="16" id="Sfe-w1-Mdh"/>
@@ -582,13 +602,16 @@
                             <constraint firstItem="jAP-78-1hJ" firstAttribute="top" secondItem="dqe-6l-7zx" secondAttribute="bottom" constant="20" id="YdK-8q-XmN"/>
                             <constraint firstItem="W5g-Et-4Vd" firstAttribute="top" secondItem="jAP-78-1hJ" secondAttribute="bottom" constant="8" id="ZHT-z4-HA6"/>
                             <constraint firstItem="Oqv-Y6-hTP" firstAttribute="trailing" secondItem="2VG-b9-sXp" secondAttribute="trailing" id="bi8-hV-WLE"/>
+                            <constraint firstItem="BSA-Oo-khg" firstAttribute="top" secondItem="Oqv-Y6-hTP" secondAttribute="bottom" constant="16" id="doO-7B-dva"/>
                             <constraint firstItem="m8M-f4-Sif" firstAttribute="leading" secondItem="Pzz-s9-nTl" secondAttribute="trailing" constant="20" id="fL7-5Q-Vo9"/>
                             <constraint firstItem="Oqv-Y6-hTP" firstAttribute="leading" secondItem="2VG-b9-sXp" secondAttribute="leading" id="fea-hH-Uzv"/>
+                            <constraint firstItem="BSA-Oo-khg" firstAttribute="leading" secondItem="9r4-mL-brd" secondAttribute="trailing" constant="4" id="fwp-gV-m7t"/>
                             <constraint firstItem="2VG-b9-sXp" firstAttribute="trailing" secondItem="xus-ZF-6yC" secondAttribute="trailing" constant="16" id="fy0-1Z-XJc"/>
                             <constraint firstItem="2VG-b9-sXp" firstAttribute="trailing" secondItem="w95-Dh-4Kg" secondAttribute="trailing" constant="16" id="hMx-oL-7ho"/>
                             <constraint firstItem="dqe-6l-7zx" firstAttribute="trailing" secondItem="25g-2B-wzW" secondAttribute="trailingMargin" id="hlT-h6-MEh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qvc-9N-vxB" secondAttribute="trailing" id="lRH-oV-yQM"/>
                             <constraint firstItem="Pzz-s9-nTl" firstAttribute="leading" secondItem="2VG-b9-sXp" secondAttribute="leading" constant="16" id="ocF-Se-Hu4"/>
+                            <constraint firstItem="9r4-mL-brd" firstAttribute="top" secondItem="Oqv-Y6-hTP" secondAttribute="bottom" constant="16" id="pBb-mJ-hp4"/>
                             <constraint firstItem="m8M-f4-Sif" firstAttribute="top" secondItem="Qvc-9N-vxB" secondAttribute="bottom" constant="22" id="r0p-h8-Mfv"/>
                             <constraint firstItem="up6-QS-Ar9" firstAttribute="top" secondItem="Oqv-Y6-hTP" secondAttribute="bottom" constant="16" id="suo-8z-EiJ"/>
                             <constraint firstItem="Pzz-s9-nTl" firstAttribute="top" secondItem="Qvc-9N-vxB" secondAttribute="bottom" constant="22" id="xBh-Pe-Mn0"/>
@@ -602,7 +625,10 @@
                     <navigationItem key="navigationItem" id="4tg-Ey-598"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="CLH-g9-0Pe" id="0vL-yG-gd6"/>
+                        <outlet property="hostAvatar" destination="Pzz-s9-nTl" id="76A-HV-vcY"/>
+                        <outlet property="hostName" destination="m8M-f4-Sif" id="TLc-ma-9Mx"/>
                         <outlet property="imagesView" destination="Oqv-Y6-hTP" id="sqJ-g3-WKU"/>
+                        <outlet property="location" destination="BSA-Oo-khg" id="Nv5-BP-6Az"/>
                         <outlet property="progressText" destination="w95-Dh-4Kg" id="whm-FQ-1Ch"/>
                         <outlet property="progressView" destination="dqe-6l-7zx" id="Cy6-qI-u3u"/>
                         <outlet property="titleLabel" destination="up6-QS-Ar9" id="k7U-gV-GVd"/>
@@ -727,6 +753,7 @@
         <image name="facebook.minimal" width="47" height="47"/>
         <image name="google.minimal" width="47" height="47"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="location.marker" width="98" height="131"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="per" width="128" height="128"/>
     </resources>

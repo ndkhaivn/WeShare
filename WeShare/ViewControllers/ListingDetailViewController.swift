@@ -17,6 +17,9 @@ class ListingDetailViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var progressText: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var hostName: UILabel!
+    @IBOutlet weak var hostAvatar: UIImageView!
+    @IBOutlet weak var location: UILabel!
     
     
     override func viewDidLoad() {
@@ -25,6 +28,11 @@ class ListingDetailViewController: UIViewController {
         titleLabel.text = listing?.title!
         progressText.text = "\(listing?.quantity! ?? 0) raised of \(listing?.quantity! ?? 0) \(listing?.unit! ?? "")"
         descriptionLabel.text = listing?.desc
+        hostName.text = listing?.host!.name
+        
+        let levels = listing?.address?.split(separator: ",")
+        let shortLocation = levels![1] // Extract the Suburb section from full address
+        location.text = String(shortLocation)
         
         imagesView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 211)
         imagesView.contentSize = CGSize(width: view.frame.width * CGFloat((listing?.imageURLs?.count)!), height: 211)
@@ -47,7 +55,22 @@ class ListingDetailViewController: UIViewController {
         }
     }
     
-
+    @IBAction func callHost(_ sender: Any) {
+        let phoneNo = listing?.host!.phoneNo
+        if let url = URL(string: "tel://\(phoneNo!)") {
+            print(url)
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    @IBAction func smsHost(_ sender: Any) {
+        let phoneNo = listing?.host!.phoneNo
+        if let url = URL(string: "sms:\(phoneNo!)") {
+            print(url)
+            UIApplication.shared.open(url)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
