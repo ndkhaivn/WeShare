@@ -9,6 +9,7 @@
 import Foundation
 
 class User: NSObject, Codable {
+    var id: String?
     var uid: String?
     var name: String?
     var phoneNo: String?

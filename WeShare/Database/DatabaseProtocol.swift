@@ -31,10 +31,15 @@ protocol DatabaseProtocol: AnyObject {
     
     func addListener(listener: DatabaseListener)
     
+    func getCurrentUser() -> User
     func getUser(withUID uid: String) -> Promise<User>
     func getUser(withID id: String) -> Promise<User>
     
     func getUserReference(uid: String) -> Promise<DocumentReference>
+    
+    func getConversation(listingID: String, userID: String, hostID: String, name: String) -> Promise<Conversation>
+    
+    func getConversations(userID: String) -> Promise<[Conversation]>
     
     func signIn(email: String, password: String, completion: @escaping (Bool) -> Void)
     

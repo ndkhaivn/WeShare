@@ -16,4 +16,5 @@ target 'WeShare' do
   pod 'LocationPicker'
   pod 'SearchTextField'
   pod 'PromisesSwift'
+  pod 'MessageKit'
 end

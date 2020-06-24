@@ -11,6 +11,8 @@ import FirebaseStorage
 
 class ListingDetailViewController: UIViewController {
 
+    weak var databaseController: DatabaseProtocol?
+    
     var listing: Listing?
     @IBOutlet weak var imagesView: UIScrollView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -24,6 +26,9 @@ class ListingDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
         
         descriptionLabel.sizeToFit()
         
@@ -73,14 +78,28 @@ class ListingDetailViewController: UIViewController {
         }
     }
     
-    /*
+    @IBAction func chatHost(_ sender: Any) {
+        
+        let currentUser = databaseController?.getCurrentUser()
+        databaseController?.getConversation(listingID: listing!.id!, userID: (currentUser?.id)!, hostID: (listing?.host?.id)!, name: (listing?.title)!).then { conversation in
+            print(conversation)
+            let user = self.databaseController?.getCurrentUser()
+            self.performSegue(withIdentifier: "chatSegue", sender: conversation)
+        }
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+//        print(sender)
+        if segue.identifier == "chatSegue" {
+            let sender = sender as! Conversation
+            let destination = segue.destination as! ChatViewController
+            destination.conversation = sender
+        }
     }
-    */
+    
 
 }

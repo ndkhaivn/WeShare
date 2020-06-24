@@ -19,7 +19,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var database: Firestore
     var listingsRef: CollectionReference?
     var usersRef: CollectionReference?
+    var conversationsRef: CollectionReference?
     var listings: [Listing]
+    var currentUser: User?
     
     override init() {
         FirebaseApp.configure()
@@ -44,6 +46,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func setUpUsers() {
         usersRef = database.collection("users")
+        self.getUser(withUID: (Auth.auth().currentUser?.uid)!).then { user in
+            self.currentUser = user
+        }
+    }
+    
+    func setUpConversations() {
+        conversationsRef = database.collection("conversations")
     }
 
     
@@ -148,7 +157,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 } else {
                     do {
                         print("fetched user \(uid)")
-                        fulfill((try querySnapshot?.documents[0].data(as: User.self))!)
+                        let user = (try querySnapshot?.documents[0].data(as: User.self))!
+                        user.id = querySnapshot?.documents[0].documentID
+                        fulfill(user)
                     } catch let error {
                         print("Error decoding user")
                         reject(error)
@@ -167,7 +178,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 } else {
                     
                     do {
-                        fulfill((try document!.data(as: User.self))!)
+                        let user = (try document!.data(as: User.self))!
+                        user.id = id
+                        fulfill(user)
                         print("fetched user \(id)")
                     } catch let error {
                         print("Error decoding user")
@@ -192,6 +205,65 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    func getCurrentUser() -> User {
+        return self.currentUser!
+    }
+    
+    func newConversation(name: String, listingID: String, userID: String, hostID: String) -> DocumentReference {
+        let document = self.conversationsRef?.addDocument(data: [
+            "name": name,
+            "listingID": listingID,
+            "userID": userID,
+            "hostID": hostID
+        ])
+        return document!
+    }
+    
+    func getConversation(listingID: String, userID: String, hostID: String, name: String) -> Promise<Conversation> {
+        return Promise { fulfill, reject in
+            self.conversationsRef?
+            .whereField("listingID", isEqualTo: listingID)
+            .whereField("userID", isEqualTo: userID)
+            .getDocuments { (querySnapshot, err) in
+                if querySnapshot?.documents.count == 0 {
+                    print("There is no such conversation. Creating new one now")
+                    let new = self.newConversation(name: name, listingID: listingID, userID: userID, hostID: hostID)
+                    fulfill(Conversation(id: new.documentID, name: name, listingID: listingID, userID: userID, hostID: hostID))
+                } else {
+                    let snapshot = querySnapshot?.documents[0]
+                    let id = snapshot!.documentID
+                    let name = snapshot!["name"] as! String
+                    let listingID = snapshot!["listingID"] as! String
+                    let userID = snapshot!["userID"] as! String
+                    fulfill(Conversation(id: id, name: name, listingID: listingID, userID: userID, hostID: hostID))
+                }
+            }
+        }
+    }
+    
+    func getConversations(userID: String) -> Promise<[Conversation]> {
+        var conversations = [Conversation]()
+        return Promise { fulfill, reject in
+            self.conversationsRef?
+            .whereField("hostID", isEqualTo: userID)
+            .getDocuments { (querySnapshot, err) in
+                
+                querySnapshot?.documents.forEach({ snapshot in
+                    let id = snapshot.documentID
+                    let name = snapshot["name"] as! String
+                    let listingID = snapshot["listingID"] as! String
+                    let userID = snapshot["userID"] as! String
+                    let hostID = snapshot["hostID"] as! String
+                    
+                    let conversation = Conversation(id: id, name: name, listingID: listingID, userID: userID, hostID: hostID)
+                    conversations.append(conversation)
+                })
+            
+                fulfill(conversations)
+            }
+        }
+    }
+    
     func signIn(email: String, password: String, completion: @escaping (Bool) -> Void){
         authController.signIn(withEmail: email, password: password) { (authResult, error) in
             guard authResult != nil else {
@@ -201,6 +273,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             print("Login successfully")
             self.setUpListingListener()
             self.setUpUsers()
+            self.setUpConversations()
             completion(true)
         }
     }

@@ -35,6 +35,9 @@
 		FB714F392476E26B007FFFA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB714F372476E26B007FFFA9 /* LaunchScreen.storyboard */; };
 		FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */; };
 		FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9624927D6300808865 /* AddressSuggestion.swift */; };
+		FBF13D992492F3DF00808865 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D982492F3DF00808865 /* Conversation.swift */; };
+		FBF13D9B2492F50400808865 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9A2492F50400808865 /* ChatViewController.swift */; };
+		FBF13D9D249315D400808865 /* AllChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9C249315D400808865 /* AllChatTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +73,9 @@
 		FB714F3A2476E26B007FFFA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyListingsViewController.swift; sourceTree = "<group>"; };
 		FBF13D9624927D6300808865 /* AddressSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestion.swift; sourceTree = "<group>"; };
+		FBF13D982492F3DF00808865 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		FBF13D9A2492F50400808865 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		FBF13D9C249315D400808865 /* AllChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,7 @@
 				FB1646E9247CC75D0092F083 /* Listing.swift */,
 				FB1646EB247CC7690092F083 /* User.swift */,
 				FB1646ED247CC79B0092F083 /* Category.swift */,
+				FBF13D982492F3DF00808865 /* Conversation.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -140,6 +147,8 @@
 				FB282853247FF29700E114E5 /* NewListingViewController.swift */,
 				FB28285D24802E7400E114E5 /* CategoriesTableViewController.swift */,
 				FB16471E247E0F610092F083 /* MapViewController.swift */,
+				FBF13D9A2492F50400808865 /* ChatViewController.swift */,
+				FBF13D9C249315D400808865 /* AllChatTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -326,7 +335,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF13D992492F3DF00808865 /* Conversation.swift in Sources */,
 				FB113A1A247B658400CC924D /* LoginViewController.swift in Sources */,
+				FBF13D9D249315D400808865 /* AllChatTableViewController.swift in Sources */,
 				FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */,
 				FB1646EA247CC75D0092F083 /* Listing.swift in Sources */,
 				FB714F312476E267007FFFA9 /* ViewController.swift in Sources */,
@@ -343,6 +354,7 @@
 				FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */,
 				FB1646EE247CC79B0092F083 /* Category.swift in Sources */,
 				FB28286124802EE200E114E5 /* CategoryCell.swift in Sources */,
+				FBF13D9B2492F50400808865 /* ChatViewController.swift in Sources */,
 				FB28286924805C9B00E114E5 /* ListingDetailViewController.swift in Sources */,
 				FB282863248036A700E114E5 /* FloatingLabelTextField.swift in Sources */,
 				FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */,

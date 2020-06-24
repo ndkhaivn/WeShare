@@ -109,7 +109,45 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n6m-5u-u5r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="823" y="1226"/>
+            <point key="canvasLocation" x="794" y="1226"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="mp0-Ri-qrR">
+            <objects>
+                <viewController id="CUd-x2-TPA" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hnc-qs-HoY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="WeShare" translatesAutoresizingMaskIntoConstraints="NO" id="ONK-sY-OzW">
+                                <rect key="frame" x="67" y="54" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="6iN-tL-spA"/>
+                                    <constraint firstAttribute="width" constant="240" id="bll-54-eJ9"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WeShare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kr3-dr-MlY">
+                                <rect key="frame" x="126" y="202" width="123" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wt5-8m-uXD">
+                                <rect key="frame" x="139" y="275" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="D2f-d4-K4r"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nbI-60-GQk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="795" y="1948"/>
         </scene>
         <!--Map-->
         <scene sceneID="pYn-LI-SHH">
@@ -451,6 +489,7 @@
                     <connections>
                         <segue destination="3xV-Yc-FFC" kind="relationship" relationship="viewControllers" id="8hF-Ta-TIE"/>
                         <segue destination="WYK-IV-ZnT" kind="relationship" relationship="viewControllers" id="WGF-w7-YFj"/>
+                        <segue destination="5hB-Wg-5Cm" kind="relationship" relationship="viewControllers" id="W4m-bT-E4D"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0P1-ZP-lwh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -539,6 +578,9 @@
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Chat"/>
+                                        <connections>
+                                            <action selector="chatHost:" destination="oYs-O4-zz7" eventType="touchUpInside" id="fVI-dg-6jz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -633,6 +675,7 @@
                         <outlet property="progressText" destination="w95-Dh-4Kg" id="whm-FQ-1Ch"/>
                         <outlet property="progressView" destination="dqe-6l-7zx" id="Cy6-qI-u3u"/>
                         <outlet property="titleLabel" destination="up6-QS-Ar9" id="k7U-gV-GVd"/>
+                        <segue destination="odJ-Gz-BTs" kind="show" identifier="chatSegue" id="P8i-3w-XNH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fg7-Zf-4f8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -747,8 +790,66 @@
             </objects>
             <point key="canvasLocation" x="2607" y="1558"/>
         </scene>
+        <!--Messages-->
+        <scene sceneID="TP5-hm-9MT">
+            <objects>
+                <tableViewController id="5hB-Wg-5Cm" customClass="AllChatTableViewController" customModule="WeShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rq0-Vz-2uZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="conversationCell" textLabel="vBM-dk-Chl" style="IBUITableViewCellStyleDefault" id="ve2-oM-xys">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ve2-oM-xys" id="fy0-SE-eJW">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vBM-dk-Chl">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5hB-Wg-5Cm" id="QfB-4E-gg2"/>
+                            <outlet property="delegate" destination="5hB-Wg-5Cm" id="0qp-lN-kcr"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Messages" image="message.circle.fill" catalog="system" id="Cge-Dq-C8r"/>
+                    <connections>
+                        <segue destination="odJ-Gz-BTs" kind="show" identifier="chatSegue" id="OJI-76-5Cf"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TWX-tn-lu3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2598" y="2251"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="Jcb-rO-pSP">
+            <objects>
+                <viewController id="odJ-Gz-BTs" customClass="ChatViewController" customModule="WeShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N2r-IV-3K0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ynj-fx-sLD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Crf-dS-XTd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AB2-pU-yM2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5638" y="2100"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="OJI-76-5Cf"/>
         <segue reference="QkR-lf-Kb4"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -759,6 +860,7 @@
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="location.marker" width="98" height="131"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
+        <image name="message.circle.fill" catalog="system" width="128" height="121"/>
         <image name="per" width="128" height="128"/>
     </resources>
 </document>
