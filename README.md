@@ -26,3 +26,25 @@ I also hope that when someone gets help, he will pay it forward and help others,
 - Sharing activity (giving - taking) on social platforms.
 
 - Give acknowledgements to supporters.
+
+## Screens
+
+| Login | Home Screen | 
+| :---: |:---:| 
+| ![login](docs/LoginScreen.png) | ![home](docs/HomeScreen.png) | 
+
+| Listing Details | Nearby Listings | 
+| :---: |:---:|
+| ![listingDetails](docs/ListingDetails.png) | ![nearbyListing](docs/NearbyListing.png) |
+
+| Map View | Map View Info | 
+| :---: | :---: |
+| ![mapView](docs/MapView.png) | ![mapViewInfo](docs/MoreInfo.png) |
+
+| Settings | Profile |
+| :---: |:---:|
+| ![settings](docs/Settings.png) | ![profile](docs/Profile.png) |
+
+| Chat | New Listing | Activity Review | 
+| :---: |:---:| :---:|
+| ![chat](docs/Messages.png) | ![newListing](docs/NewPost.png) | ![activityReview](docs/ActivityReview.png) |
