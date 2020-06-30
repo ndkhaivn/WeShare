@@ -18,9 +18,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var authController: Auth
     var database: Firestore
     var listingsRef: CollectionReference?
+    var activitiesRef: CollectionReference?
     var usersRef: CollectionReference?
     var conversationsRef: CollectionReference?
     var listings: [Listing]
+    var activities: [Activity]
     var currentUser: User?
     
     override init() {
@@ -28,6 +30,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         authController = Auth.auth()
         database = Firestore.firestore()
         listings = [Listing]()
+        activities = [Activity]()
         
         super.init()
     }
@@ -48,64 +51,137 @@ class FirebaseController: NSObject, DatabaseProtocol {
         usersRef = database.collection("users")
         self.getUser(withUID: (Auth.auth().currentUser?.uid)!).then { user in
             self.currentUser = user
+            self.setUpActivitiesListener(hostID: user.id!)
         }
     }
     
     func setUpConversations() {
         conversationsRef = database.collection("conversations")
     }
+    
+    func setUpActivitiesListener(hostID: String) {
+        activitiesRef = database.collection("activities")
+        activitiesRef?.whereField("hostUser", isEqualTo: hostID).addSnapshotListener { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            self.parseActivitiesSnapshot(snapshot: querySnapshot)
+        }
+        
+        activitiesRef?.whereField("requestUser", isEqualTo: hostID).addSnapshotListener { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            self.parseActivitiesSnapshot(snapshot: querySnapshot)
+        }
+    }
 
+    
+    func parseListingDocument(document: DocumentSnapshot) -> Listing? {
+        var parsedListing: Listing?
+        
+        let listingID = document.documentID
+        print(listingID)
+        
+        if let hostRef = document.data()!["host"] as? DocumentReference {
+            
+            getUser(withID: hostRef.documentID).then { (user) in
+                parsedListing!.host = user
+            }
+        }
+        
+        do {
+            parsedListing = try document.data(as: Listing.self)
+        } catch {
+            print("Unable to decode listing.")
+            return nil
+        }
+        
+        guard let listing = parsedListing else {
+            print("Document doesn't exist")
+            return nil
+        }
+        listing.id = listingID
+        
+        return listing
+    }
     
     // MARK:- Parse Functions for Firebase Firestore responses
     func parseListingsSnapshot(snapshot: QuerySnapshot) {
 
         snapshot.documentChanges.forEach { (change) in
             
-            var parsedListing: Listing?
-            
-            let listingID = change.document.documentID
-            
-            if let hostRef = change.document.data()["host"] as? DocumentReference {
-                
-                getUser(withID: hostRef.documentID).then { (user) in
-                    parsedListing!.host = user
-                }
-            }
-            
-            do {
-                parsedListing = try change.document.data(as: Listing.self)
-            } catch {
-                print("Unable to decode listing.")
+            guard let listing = parseListingDocument(document: change.document) else {
                 return
             }
             
-            guard let listing = parsedListing else {
-                print("Document doesn't exist")
-                return;
-            }
-            
-            listing.id = listingID
             if change.type == .added {
                 listings.append(listing)
             }
             else if change.type == .modified {
-                let index = getListingIndexByID(listingID)!
+                let index = getListingIndexByID(listing.id!)!
                 listings[index] = listing
             }
             else if change.type == .removed {
-                if let index = getListingIndexByID(listingID) {
+                if let index = getListingIndexByID(listing.id!) {
                     listings.remove(at: index)
                 }
             }
         }
-        
-        print("parse successfully")
         
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.listings ||
                 listener.listenerType == ListenerType.all {
                 print("invoking", listener)
                 listener.onListingsChange(change: .update, listings: listings)
+            }
+        }
+    }
+    
+    func parseActivitiesSnapshot(snapshot: QuerySnapshot) {
+
+        snapshot.documentChanges.forEach { (change) in
+
+            let activityID = change.document.documentID
+            let document = change.document
+            
+            let hostUserID = document["hostUser"] as! String
+            let requestUserID = document["requestUser"] as! String
+            let quantity = document["quantity"] as! Int
+            let accepted = document["accepted"] as? Bool
+            let acceptedOn = document["acceptedOn"] as? Date
+            let listingID = document["listing"] as! String
+            
+            all(
+                getUser(withID: hostUserID),
+                getUser(withID: requestUserID),
+                getListing(withID: listingID)
+            ).then { (hostUser, requestUser, listing) in
+                let parsedActivity = Activity(id: activityID, hostUser: hostUser, requestUser: requestUser, accepted: accepted, acceptedOn: acceptedOn, quantity: quantity, listing: listing)
+                
+                if change.type == .added {
+                    self.activities.append(parsedActivity)
+                }
+                else if change.type == .modified {
+                    if let index = self.getActivityIndexByID(parsedActivity.id) {
+                        self.activities[index] = parsedActivity
+                    }
+                }
+                else if change.type == .removed {
+                    if let index = self.getActivityIndexByID(parsedActivity.id) {
+                        self.activities.remove(at: index)
+                    }
+                }
+                
+                self.listeners.invoke { (listener) in
+                    if listener.listenerType == ListenerType.activities ||
+                        listener.listenerType == ListenerType.all {
+                        listener.onActivitiesChange(change: .update, activities: self.activities)
+                    }
+                }
+                
             }
         }
     }
@@ -127,6 +203,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return nil
     }
     
+    func getActivityIndexByID(_ id: String) -> Int? {
+        return activities.firstIndex(where: { $0.id == id })
+    }
+    
     // MARK:- Required Database Functions
     
     func addListing(listing: Listing) -> Listing {
@@ -145,6 +225,27 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         
         return listing
+    }
+    
+    
+    func getListing(withID id: String) -> Promise<Listing> {
+        return Promise { fulfill, reject in
+            self.listingsRef?.document(id).getDocument{ (document, err) in
+                if let err = err {
+                    print("Error getting listing: \(err)")
+                    reject(err)
+                } else {
+                    do {
+                        let listing = self.parseListingDocument(document: document!)
+                        fulfill(listing!)
+                    } catch let error {
+                        print("Error decoding listing")
+                        reject(error)
+                    }
+                }
+            }
+            
+        }
     }
     
     func getUser(withUID uid: String) -> Promise<User> {
@@ -264,6 +365,33 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    func addActivity(requestUser: User, quantity: Int, listing: Listing) {
+        activitiesRef!.addDocument(data: [
+            "hostUser": (listing.host?.id)!,
+            "requestUser": (requestUser.id)!,
+            "quantity": quantity,
+            "listing": (listing.id)!
+        ])
+    }
+    
+    func acceptActivity(activity: Activity, accepted: Bool) {
+        if (accepted) {
+            activitiesRef!.document(activity.id).updateData([
+                "accepted": true,
+                "acceptedOn": Date()
+            ]);
+            
+            listingsRef!.document((activity.listing?.id)!).updateData([
+                "remaining": (activity.listing?.remaining)! - activity.quantity
+            ])
+        } else {
+            activitiesRef!.document(activity.id).updateData([
+                "accepted": false
+            ]);
+        }
+        
+    }
+    
     func signIn(email: String, password: String, completion: @escaping (Bool) -> Void){
         authController.signIn(withEmail: email, password: password) { (authResult, error) in
             guard authResult != nil else {
@@ -284,6 +412,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
         if listener.listenerType == ListenerType.listings ||
             listener.listenerType == ListenerType.all {
             listener.onListingsChange(change: .update, listings: listings)
+        }
+        
+        if listener.listenerType == ListenerType.activities ||
+            listener.listenerType == ListenerType.all {
+            listener.onActivitiesChange(change: .update, activities: activities)
         }
     }
     

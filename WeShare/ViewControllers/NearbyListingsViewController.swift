@@ -33,6 +33,8 @@ class NearbyListingsViewController: UIViewController, DatabaseListener {
         tableView.reloadData()
     }
     
+    func onActivitiesChange(change: DatabaseChange, activities: [Activity]) {}
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)

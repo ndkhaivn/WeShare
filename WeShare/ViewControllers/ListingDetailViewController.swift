@@ -62,6 +62,20 @@ class ListingDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func request(_ sender: Any) {
+        let alert = UIAlertController(title: "Request", message: "Enter the quantity (maximum \((listing?.remaining!)!))", preferredStyle: .alert)
+        alert.addTextField()
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+            let currentUser = self.databaseController?.getCurrentUser()
+            self.databaseController?.addActivity(requestUser: currentUser!, quantity: Int(textField!.text!) ?? 0, listing: self.listing!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak alert] (_) in
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func callHost(_ sender: Any) {
         let phoneNo = listing?.host!.phoneNo
         if let url = URL(string: "tel://\(phoneNo!)") {

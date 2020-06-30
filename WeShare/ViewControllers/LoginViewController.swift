@@ -20,6 +20,7 @@ class LoginViewController: UIViewController, DatabaseListener {
     func onListingsChange(change: DatabaseChange, listings: [Listing]) {
         print(listings)
     }
+    func onActivitiesChange(change: DatabaseChange, activities: [Activity]) {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,7 @@ class LoginViewController: UIViewController, DatabaseListener {
         let email = emailField.text!
         let password = passwordField.text!
         
+//        databaseController?.signIn(email: "john.doe@gmail.com", password: "LOVE12344") { loginStatus in
         databaseController?.signIn(email: email, password: password) { loginStatus in
             if (!loginStatus) {
                 let errorMessage = "Incorrect email or password. \nPlease try again."

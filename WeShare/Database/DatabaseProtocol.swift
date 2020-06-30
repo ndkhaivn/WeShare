@@ -17,21 +17,25 @@ enum DatabaseChange {
 
 enum ListenerType {
     case listings
+    case activities
     case all
 }
 
 protocol DatabaseListener: AnyObject{
     var listenerType: ListenerType {get set}
     func onListingsChange(change: DatabaseChange, listings: [Listing])
+    func onActivitiesChange(change: DatabaseChange, activities: [Activity])
 }
 
 protocol DatabaseProtocol: AnyObject {
     
     func addListing(listing: Listing) -> Listing
+    func getListing(withID id: String) -> Promise<Listing>
     
     func addListener(listener: DatabaseListener)
     
     func getCurrentUser() -> User
+    
     func getUser(withUID uid: String) -> Promise<User>
     func getUser(withID id: String) -> Promise<User>
     
@@ -40,6 +44,10 @@ protocol DatabaseProtocol: AnyObject {
     func getConversation(listingID: String, userID: String, hostID: String, name: String) -> Promise<Conversation>
     
     func getConversations(userID: String) -> Promise<[Conversation]>
+    
+    func addActivity(requestUser: User, quantity: Int, listing: Listing)
+    
+    func acceptActivity(activity: Activity, accepted: Bool)
     
     func signIn(email: String, password: String, completion: @escaping (Bool) -> Void)
     

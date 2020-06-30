@@ -33,11 +33,14 @@
 		FB714F342476E267007FFFA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB714F322476E267007FFFA9 /* Main.storyboard */; };
 		FB714F362476E26B007FFFA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB714F352476E26B007FFFA9 /* Assets.xcassets */; };
 		FB714F392476E26B007FFFA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB714F372476E26B007FFFA9 /* LaunchScreen.storyboard */; };
+		FB77101324A3A39F00175F47 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB77101224A3A39F00175F47 /* Activity.swift */; };
+		FB8A5EC124AAE45A00B40B50 /* AllActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A5EC024AAE45A00B40B50 /* AllActivitiesViewController.swift */; };
 		FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */; };
 		FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9624927D6300808865 /* AddressSuggestion.swift */; };
 		FBF13D992492F3DF00808865 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D982492F3DF00808865 /* Conversation.swift */; };
 		FBF13D9B2492F50400808865 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9A2492F50400808865 /* ChatViewController.swift */; };
 		FBF13D9D249315D400808865 /* AllChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9C249315D400808865 /* AllChatTableViewController.swift */; };
+		FBFC016424AAE3520006DFE6 /* ActivityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFC016324AAE3520006DFE6 /* ActivityViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,11 +74,14 @@
 		FB714F352476E26B007FFFA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB714F382476E26B007FFFA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB714F3A2476E26B007FFFA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB77101224A3A39F00175F47 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		FB8A5EC024AAE45A00B40B50 /* AllActivitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllActivitiesViewController.swift; sourceTree = "<group>"; };
 		FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyListingsViewController.swift; sourceTree = "<group>"; };
 		FBF13D9624927D6300808865 /* AddressSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestion.swift; sourceTree = "<group>"; };
 		FBF13D982492F3DF00808865 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		FBF13D9A2492F50400808865 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		FBF13D9C249315D400808865 /* AllChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatTableViewController.swift; sourceTree = "<group>"; };
+		FBFC016324AAE3520006DFE6 /* ActivityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +130,7 @@
 				FB1646EB247CC7690092F083 /* User.swift */,
 				FB1646ED247CC79B0092F083 /* Category.swift */,
 				FBF13D982492F3DF00808865 /* Conversation.swift */,
+				FB77101224A3A39F00175F47 /* Activity.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -149,6 +156,7 @@
 				FB16471E247E0F610092F083 /* MapViewController.swift */,
 				FBF13D9A2492F50400808865 /* ChatViewController.swift */,
 				FBF13D9C249315D400808865 /* AllChatTableViewController.swift */,
+				FB8A5EC024AAE45A00B40B50 /* AllActivitiesViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -172,6 +180,7 @@
 		FB28285F24802EB900E114E5 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				FBFC016324AAE3520006DFE6 /* ActivityViewCell.swift */,
 				FB28286024802EE200E114E5 /* CategoryCell.swift */,
 				FB28286624805B8C00E114E5 /* ListingTableViewCell.swift */,
 			);
@@ -336,7 +345,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBF13D992492F3DF00808865 /* Conversation.swift in Sources */,
+				FBFC016424AAE3520006DFE6 /* ActivityViewCell.swift in Sources */,
 				FB113A1A247B658400CC924D /* LoginViewController.swift in Sources */,
+				FB8A5EC124AAE45A00B40B50 /* AllActivitiesViewController.swift in Sources */,
 				FBF13D9D249315D400808865 /* AllChatTableViewController.swift in Sources */,
 				FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */,
 				FB1646EA247CC75D0092F083 /* Listing.swift in Sources */,
@@ -359,6 +370,7 @@
 				FB282863248036A700E114E5 /* FloatingLabelTextField.swift in Sources */,
 				FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */,
 				FB28286724805B8C00E114E5 /* ListingTableViewCell.swift in Sources */,
+				FB77101324A3A39F00175F47 /* Activity.swift in Sources */,
 				FB16471F247E0F610092F083 /* MapViewController.swift in Sources */,
 				FB28285E24802E7400E114E5 /* CategoriesTableViewController.swift in Sources */,
 			);

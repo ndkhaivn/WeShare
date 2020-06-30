@@ -176,6 +176,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
             self.newListing.imageURLs = urls
             self.newListing.title = self.titleField.text
             self.newListing.quantity = Int(self.quantityField.text!)
+            self.newListing.remaining = self.newListing.quantity
             self.newListing.unit = self.unitField.text
             self.newListing.address = self.addressField.text
             self.newListing.desc = self.descriptionField.text

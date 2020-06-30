@@ -13,6 +13,8 @@ class Listing: NSObject, Codable {
     var title: String?
     var category: Category?
     var quantity: Int?
+    var remaining: Int?
+    var giving: Bool?
     var unit: String?
     var address: String?
     var desc: String?
@@ -26,7 +28,9 @@ class Listing: NSObject, Codable {
         case title
         case category
         case quantity
+        case remaining
         case unit
+        case giving
         case address
         case desc
         case iconName

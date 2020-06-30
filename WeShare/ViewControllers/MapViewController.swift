@@ -62,9 +62,9 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
             mapView.addAnnotation(annotation)
             allAnnotations.append(annotation)
         }
-        
-        
     }
+    
+    func onActivitiesChange(change: DatabaseChange, activities: [Activity]) {}
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -81,6 +81,8 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
             
             markerAnnotationView.canShowCallout = true
             markerAnnotationView.animatesWhenAdded = true
+            
+//            markerAnnotationView.markerTintColor = UIColor.green
             
             markerAnnotationView.loadDescription(description: annotation.subtitle!)
             
