@@ -45,14 +45,14 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
         let currentUser = databaseController?.getCurrentUser()
         if (activity.hostUser.id == currentUser?.id) {
             name = activity.requestUser.name!
-            if ((activity.listing?.giving)!) {
+            if ((activity.listing.giving)!) {
                 action = "To"
             } else {
                 action = "From"
             }
         } else {
             name = activity.hostUser.name!
-            if ((activity.listing?.giving)!) {
+            if ((activity.listing.giving)!) {
                 action = "From"
             } else {
                 action = "To"
@@ -73,7 +73,7 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
         
         let activity = activities[indexPath.row]
         cell.userLabel.text = userTakeGive(activity: activity)
-        cell.itemLabel.text = "\((activity.listing?.title)!) x\(activity.quantity)"
+        cell.itemLabel.text = "\((activity.listing.title)!) x\(activity.quantity)"
         if (activity.accepted == nil) {
             cell.pendingTag.text = "Pending"
             cell.pendingTag.textColor = .systemGray
@@ -90,6 +90,10 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if (activities[indexPath.row].accepted == true) {
+            performSegue(withIdentifier: "activityDetail", sender: activities[indexPath.row])
+        }
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -116,14 +120,17 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
         return (activity.accepted == nil) && (activity.hostUser.id == databaseController?.getCurrentUser().id)
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "activityDetail") {
+            let destination = segue.destination as! ActivityDetailViewController
+            destination.activity = (sender as! Activity)
+        }
+        
     }
-    */
+    
 
 }

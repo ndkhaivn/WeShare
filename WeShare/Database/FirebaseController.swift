@@ -144,6 +144,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
 
         snapshot.documentChanges.forEach { (change) in
 
+            var acceptedOn: Date? = nil
             let activityID = change.document.documentID
             let document = change.document
             
@@ -151,7 +152,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
             let requestUserID = document["requestUser"] as! String
             let quantity = document["quantity"] as! Int
             let accepted = document["accepted"] as? Bool
-            let acceptedOn = document["acceptedOn"] as? Date
+            if let timestamp = document["acceptedOn"] as? Timestamp {
+                acceptedOn = Date(timeIntervalSince1970: TimeInterval(timestamp.seconds))
+            }
             let listingID = document["listing"] as! String
             
             all(
@@ -381,8 +384,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 "acceptedOn": Date()
             ]);
             
-            listingsRef!.document((activity.listing?.id)!).updateData([
-                "remaining": (activity.listing?.remaining)! - activity.quantity
+            listingsRef!.document((activity.listing.id)!).updateData([
+                "remaining": (activity.listing.remaining)! - activity.quantity
             ])
         } else {
             activitiesRef!.document(activity.id).updateData([

@@ -33,7 +33,7 @@ class ListingDetailViewController: UIViewController {
         descriptionLabel.sizeToFit()
         
         titleLabel.text = listing?.title!
-        progressText.text = "\(listing?.quantity! ?? 0) raised of \(listing?.quantity! ?? 0) \(listing?.unit! ?? "")"
+        progressText.text = "Remaining: \(listing?.remaining! ?? 0) out of \(listing?.quantity! ?? 0) \(listing?.unit! ?? "")"
         descriptionLabel.text = listing?.desc
         hostName.text = listing?.host!.name
         
@@ -63,7 +63,7 @@ class ListingDetailViewController: UIViewController {
     }
     
     @IBAction func request(_ sender: Any) {
-        let alert = UIAlertController(title: "Request", message: "Enter the quantity (maximum \((listing?.remaining!)!))", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Request", message: "Enter the quantity (\((listing?.remaining!)!) remaining)", preferredStyle: .alert)
         alert.addTextField()
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]

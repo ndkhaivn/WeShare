@@ -15,9 +15,9 @@ class Activity: NSObject {
     var accepted: Bool?
     var acceptedOn: Date?
     var quantity: Int
-    var listing: Listing?
+    var listing: Listing
     
-    init(id: String, hostUser: User, requestUser: User, accepted: Bool?, acceptedOn: Date?, quantity: Int, listing: Listing?) {
+    init(id: String, hostUser: User, requestUser: User, accepted: Bool?, acceptedOn: Date?, quantity: Int, listing: Listing) {
         self.id = id
         self.hostUser = hostUser
         self.requestUser = requestUser
