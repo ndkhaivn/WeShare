@@ -13,6 +13,7 @@ class ActivityViewCell: UITableViewCell {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var pendingTag: UILabel!
+    @IBOutlet weak var avatar: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

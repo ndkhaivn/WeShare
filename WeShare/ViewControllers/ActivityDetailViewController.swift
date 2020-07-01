@@ -44,6 +44,17 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
             taker = activity!.hostUser
         }
         
+        giverImage.initAvatarFrame()
+        takerImage.initAvatarFrame()
+        
+        if (giver.avatarImage != nil) {
+            giverImage.image = giver.avatarImage
+        }
+        
+        if (taker.avatarImage != nil) {
+            takerImage.image = taker.avatarImage
+        }
+        
         giverName.text = giver.name
         takerName.text = taker.name
         listingTitle.text = "\((activity!.listing.title)!) x\(activity!.quantity)"

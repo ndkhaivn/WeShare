@@ -72,6 +72,7 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
         let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath) as! ActivityViewCell
         
         let activity = activities[indexPath.row]
+        cell.avatar.initAvatarFrame()
         cell.userLabel.text = userTakeGive(activity: activity)
         cell.itemLabel.text = "\((activity.listing.title)!) x\(activity.quantity)"
         if (activity.accepted == nil) {
@@ -83,6 +84,10 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
         } else {
             cell.pendingTag.text = "Declined"
             cell.pendingTag.textColor = .systemRed
+        }
+        
+        if (activity.requestUser.avatarImage != nil) {
+            cell.avatar.image = activity.requestUser.avatarImage
         }
         
         return cell

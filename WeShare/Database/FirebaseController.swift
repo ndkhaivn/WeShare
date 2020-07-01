@@ -260,10 +260,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     reject(err)
                 } else {
                     do {
-                        print("fetched user \(uid)")
                         let user = (try querySnapshot?.documents[0].data(as: User.self))!
                         user.id = querySnapshot?.documents[0].documentID
-                        fulfill(user)
+                        if (user.avatarURL != nil) {
+                            self.getImage(url: user.avatarURL!).then { image in
+                                user.avatarImage = image
+                                fulfill(user)
+                            }
+                        } else {
+                            fulfill(user)
+                        }
+                        
                     } catch let error {
                         print("Error decoding user")
                         reject(error)
@@ -284,8 +291,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     do {
                         let user = (try document!.data(as: User.self))!
                         user.id = id
-                        fulfill(user)
-                        print("fetched user \(id)")
+                        if (user.avatarURL != nil) {
+                            self.getImage(url: user.avatarURL!).then { image in
+                                user.avatarImage = image
+                                fulfill(user)
+                            }
+                        } else {
+                            fulfill(user)
+                        }
                     } catch let error {
                         print("Error decoding user")
                         reject(error)
@@ -311,6 +324,20 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func getCurrentUser() -> User {
         return self.currentUser!
+    }
+    
+    func updateUser(id: String, key: String, value: Any) -> Promise<Bool> {
+        return Promise { fulfill, reject in
+            self.usersRef?.document(id).updateData([
+                key: value
+            ]) { error in
+                if (error != nil) {
+                    reject(error!)
+                } else {
+                    fulfill(true)
+                }
+            }
+        }
     }
     
     func newConversation(name: String, listingID: String, userID: String, hostID: String) -> DocumentReference {
@@ -441,6 +468,22 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    func getImage(url: URL) -> Promise<UIImage> {
+        let storage = Storage.storage()
+        let storageRef = storage.reference(forURL: url.absoluteString)
+        return Promise { fulfill, reject in
+            storageRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
+                if error != nil {
+                    reject(error!)
+                } else {
+                    let image = UIImage(data: data!)
+                    fulfill(image!)
+                }
+            }
+        }
+        
+    }
+    
     func signIn(email: String, password: String) -> Promise<Bool> {
         return Promise { fulfill, reject in
             self.authController.signIn(withEmail: email, password: password) { (authResult, error) in
@@ -453,6 +496,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     fulfill(true)
                 }
             }
+        }
+    }
+    
+    func signOut() {
+        do {
+            try self.authController.signOut()
+        } catch let error as NSError {
+            print(error)
         }
     }
     

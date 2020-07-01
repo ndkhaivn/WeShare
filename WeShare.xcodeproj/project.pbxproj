@@ -41,6 +41,8 @@
 		FBAB885624AC55EC005AB66F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB885524AC55EC005AB66F /* RegisterViewController.swift */; };
 		FBAB885824AC6646005AB66F /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB885724AC6646005AB66F /* ForgotPasswordViewController.swift */; };
 		FBAB885A24AC6945005AB66F /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB885924AC6945005AB66F /* UIViewController.swift */; };
+		FBDE556B24AC8C2D000E0F3E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDE556A24AC8C2D000E0F3E /* ProfileViewController.swift */; };
+		FBDE556D24AC9EDA000E0F3E /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDE556C24AC9EDA000E0F3E /* UIImageView.swift */; };
 		FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9624927D6300808865 /* AddressSuggestion.swift */; };
 		FBF13D992492F3DF00808865 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D982492F3DF00808865 /* Conversation.swift */; };
 		FBF13D9B2492F50400808865 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9A2492F50400808865 /* ChatViewController.swift */; };
@@ -87,6 +89,8 @@
 		FBAB885524AC55EC005AB66F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		FBAB885724AC6646005AB66F /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		FBAB885924AC6945005AB66F /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		FBDE556A24AC8C2D000E0F3E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FBDE556C24AC9EDA000E0F3E /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		FBF13D9624927D6300808865 /* AddressSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestion.swift; sourceTree = "<group>"; };
 		FBF13D982492F3DF00808865 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		FBF13D9A2492F50400808865 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 				FBF13D9624927D6300808865 /* AddressSuggestion.swift */,
 				FB8A5EC424AC3FD200B40B50 /* UIColor.swift */,
 				FBAB885924AC6945005AB66F /* UIViewController.swift */,
+				FBDE556C24AC9EDA000E0F3E /* UIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				FBF13D9C249315D400808865 /* AllChatTableViewController.swift */,
 				FB8A5EC024AAE45A00B40B50 /* AllActivitiesViewController.swift */,
 				FB8A5EC224AB29B900B40B50 /* ActivityDetailViewController.swift */,
+				FBDE556A24AC8C2D000E0F3E /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -405,10 +411,12 @@
 				FBF13D9B2492F50400808865 /* ChatViewController.swift in Sources */,
 				FB28286924805C9B00E114E5 /* ListingDetailViewController.swift in Sources */,
 				FB282863248036A700E114E5 /* FloatingLabelTextField.swift in Sources */,
+				FBDE556D24AC9EDA000E0F3E /* UIImageView.swift in Sources */,
 				FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */,
 				FBAB885624AC55EC005AB66F /* RegisterViewController.swift in Sources */,
 				FB28286724805B8C00E114E5 /* ListingTableViewCell.swift in Sources */,
 				FB77101324A3A39F00175F47 /* Activity.swift in Sources */,
+				FBDE556B24AC8C2D000E0F3E /* ProfileViewController.swift in Sources */,
 				FB16471F247E0F610092F083 /* MapViewController.swift in Sources */,
 				FB28285E24802E7400E114E5 /* CategoriesTableViewController.swift in Sources */,
 			);

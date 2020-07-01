@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class User: NSObject, Codable {
     var id: String?
@@ -14,6 +15,7 @@ class User: NSObject, Codable {
     var name: String?
     var phoneNo: String?
     var avatarURL: URL?
+    var avatarImage: UIImage?
     
     enum CodingKeys: String, CodingKey {
         case uid

@@ -51,18 +51,11 @@ class ListingDetailViewController: UIViewController {
         imagesView.isPagingEnabled = true
         
         for i in 0 ..< (listing?.imageURLs?.count)! {
-            let storage = Storage.storage()
-            let storageRef = storage.reference(forURL: (listing?.imageURLs?[i])!.absoluteString)
-            storageRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
-                if error != nil {
-                    print("Error fetching image from Firebase Storage")
-                } else {
-                    let image = UIImage(data: data!)
-                    let imageView = UIImageView(image: image)
-                    imageView.contentMode = .scaleAspectFit
-                    imageView.frame = CGRect(x: self.view.frame.width * CGFloat(i), y: 0, width: self.view.frame.width, height: 211)
-                    self.imagesView.addSubview(imageView)
-                }
+            databaseController?.getImage(url: (listing?.imageURLs?[i])!).then { image in
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFit
+                imageView.frame = CGRect(x: self.view.frame.width * CGFloat(i), y: 0, width: self.view.frame.width, height: 211)
+                self.imagesView.addSubview(imageView)
             }
         }
     }

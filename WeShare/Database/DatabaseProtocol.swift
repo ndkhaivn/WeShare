@@ -35,22 +35,22 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     
     func getCurrentUser() -> User
-    
     func getUser(withUID uid: String) -> Promise<User>
     func getUser(withID id: String) -> Promise<User>
-    
     func getUserReference(uid: String) -> Promise<DocumentReference>
+    func updateUser(id: String, key: String, value: Any) -> Promise<Bool>
     
     func getConversation(listingID: String, userID: String, hostID: String, name: String) -> Promise<Conversation>
-    
     func getConversations(userID: String) -> Promise<[Conversation]>
     
     func addActivity(requestUser: User, quantity: Int, listing: Listing)
     func acceptActivity(activity: Activity, accepted: Bool)
     
     func uploadImage(image: UIImage) -> Promise<URL>
+    func getImage(url: URL) -> Promise<UIImage>
     
     func signIn(email: String, password: String) -> Promise<Bool>
+    func signOut()
     func signUp(email: String, password: String, name: String, phoneNo: String) -> Promise<Bool>
     func resetPassword(email: String) -> Promise<Bool>
     
