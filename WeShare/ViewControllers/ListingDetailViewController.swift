@@ -71,9 +71,7 @@ class ListingDetailViewController: UIViewController {
         
         let currentUser = databaseController?.getCurrentUser()
         if (currentUser?.id == listing?.host?.id) {
-            let alert = UIAlertController(title: "Warning", message: "You can't request your listing", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
+            self.showAlert(title: "Warning", message: "You can't request your listing")
             return
         }
         
@@ -84,8 +82,7 @@ class ListingDetailViewController: UIViewController {
             let currentUser = self.databaseController?.getCurrentUser()
             self.databaseController?.addActivity(requestUser: currentUser!, quantity: Int(textField!.text!) ?? 0, listing: self.listing!)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak alert] (_) in
-        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
 
         self.present(alert, animated: true, completion: nil)
     }
@@ -110,9 +107,7 @@ class ListingDetailViewController: UIViewController {
         
         let currentUser = databaseController?.getCurrentUser()
         if (currentUser?.id == listing?.host?.id) {
-            let alert = UIAlertController(title: "Warning", message: "You can't message yourself", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
+            self.showAlert(title: "Warning", message: "You can't message yourself")
             return
         }
         databaseController?.getConversation(listingID: listing!.id!, userID: (currentUser?.id)!, hostID: (listing?.host?.id)!, name: (listing?.title)!).then { conversation in

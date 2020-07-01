@@ -412,18 +412,55 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
     }
     
-    func signIn(email: String, password: String, completion: @escaping (Bool) -> Void){
-        authController.signIn(withEmail: email, password: password) { (authResult, error) in
-            guard authResult != nil else {
-                completion(false)
-                return
+    func signIn(email: String, password: String) -> Promise<Bool> {
+        return Promise { fulfill, reject in
+            self.authController.signIn(withEmail: email, password: password) { (authResult, error) in
+                if error != nil {
+                    reject(error!)
+                } else {
+                    self.setUpListingListener()
+                    self.setUpUsers()
+                    self.setUpConversations()
+                    fulfill(true)
+                }
             }
-            print("Login successfully")
-            self.setUpListingListener()
-            self.setUpUsers()
-            self.setUpConversations()
-            completion(true)
         }
+    }
+    
+    func signUp(email: String, password: String, name: String, phoneNo: String) -> Promise<Bool> {
+        return Promise { fulfill, reject in
+            self.authController.createUser(withEmail: email, password: password) { (result, error) in
+                if error != nil {
+                    reject(error!)
+                } else {
+                    let uid = result!.user.uid
+                    
+                    self.database.collection("users").addDocument(data: [
+                        "uid": uid,
+                        "name": name,
+                        "phoneNo": phoneNo,
+                        "avatarURL": nil
+                    ])
+                    
+                    fulfill(true)
+                }
+            }
+        }
+    }
+    
+    func resetPassword(email: String) -> Promise<Bool> {
+        
+        return Promise { fulfill, reject in
+            self.authController.sendPasswordReset(withEmail: email) { error in
+                if error != nil {
+                    reject(error!)
+                } else {
+                    fulfill(true)
+                }
+            }
+            
+        }
+        
     }
     
     func addListener(listener: DatabaseListener) {

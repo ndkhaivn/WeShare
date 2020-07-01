@@ -17,4 +17,7 @@ target 'WeShare' do
   pod 'SearchTextField'
   pod 'PromisesSwift'
   pod 'MessageKit'
+  pod 'GoogleSignIn'
+  pod 'FacebookShare'
+
 end

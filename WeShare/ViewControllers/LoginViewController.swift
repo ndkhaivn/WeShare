@@ -25,15 +25,14 @@ class LoginViewController: UIViewController, DatabaseListener {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emailField.setLeftIcon(systemName: "person")
-        passwordField.setLeftIcon(systemName: "lock")
+        emailField.setLeftIcon(systemName: "envelope")
+        passwordField.setLeftIcon(systemName: "lock.open")
         
         self.modalPresentationStyle = .fullScreen
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        
-        // Do any additional setup after loading the view.
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,28 +49,12 @@ class LoginViewController: UIViewController, DatabaseListener {
         let email = emailField.text!
         let password = passwordField.text!
         
-//        databaseController?.signIn(email: "john.doe@gmail.com", password: "LOVE12344") { loginStatus in
-        databaseController?.signIn(email: email, password: password) { loginStatus in
-            if (!loginStatus) {
-                let errorMessage = "Incorrect email or password. \nPlease try again."
-                let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            } else {
-                self.performSegue(withIdentifier: "loginSuccessfully", sender: nil)
-            }
-        }
+        databaseController?.signIn(email: email, password: password).then{ result in
+            self.performSegue(withIdentifier: "loginSuccessfully", sender: nil)
+        }.catch({ error in
+            self.showAlert(title: "Login Error", message: error.localizedDescription)
+        })
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

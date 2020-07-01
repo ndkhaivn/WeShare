@@ -49,7 +49,9 @@ protocol DatabaseProtocol: AnyObject {
     
     func acceptActivity(activity: Activity, accepted: Bool)
     
-    func signIn(email: String, password: String, completion: @escaping (Bool) -> Void)
+    func signIn(email: String, password: String) -> Promise<Bool>
+    func signUp(email: String, password: String, name: String, phoneNo: String) -> Promise<Bool>
+    func resetPassword(email: String) -> Promise<Bool>
     
     func removeListener(listener: DatabaseListener)
 }

@@ -38,6 +38,9 @@
 		FB8A5EC324AB29B900B40B50 /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A5EC224AB29B900B40B50 /* ActivityDetailViewController.swift */; };
 		FB8A5EC524AC3FD200B40B50 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A5EC424AC3FD200B40B50 /* UIColor.swift */; };
 		FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */; };
+		FBAB885624AC55EC005AB66F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB885524AC55EC005AB66F /* RegisterViewController.swift */; };
+		FBAB885824AC6646005AB66F /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB885724AC6646005AB66F /* ForgotPasswordViewController.swift */; };
+		FBAB885A24AC6945005AB66F /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB885924AC6945005AB66F /* UIViewController.swift */; };
 		FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9624927D6300808865 /* AddressSuggestion.swift */; };
 		FBF13D992492F3DF00808865 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D982492F3DF00808865 /* Conversation.swift */; };
 		FBF13D9B2492F50400808865 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9A2492F50400808865 /* ChatViewController.swift */; };
@@ -81,6 +84,9 @@
 		FB8A5EC224AB29B900B40B50 /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
 		FB8A5EC424AC3FD200B40B50 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyListingsViewController.swift; sourceTree = "<group>"; };
+		FBAB885524AC55EC005AB66F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		FBAB885724AC6646005AB66F /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		FBAB885924AC6945005AB66F /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		FBF13D9624927D6300808865 /* AddressSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestion.swift; sourceTree = "<group>"; };
 		FBF13D982492F3DF00808865 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		FBF13D9A2492F50400808865 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 				FB282862248036A700E114E5 /* FloatingLabelTextField.swift */,
 				FBF13D9624927D6300808865 /* AddressSuggestion.swift */,
 				FB8A5EC424AC3FD200B40B50 /* UIColor.swift */,
+				FBAB885924AC6945005AB66F /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -154,6 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				FB113A19247B658400CC924D /* LoginViewController.swift */,
+				FBAB885524AC55EC005AB66F /* RegisterViewController.swift */,
+				FBAB885724AC6646005AB66F /* ForgotPasswordViewController.swift */,
 				FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */,
 				FB28286824805C9B00E114E5 /* ListingDetailViewController.swift */,
 				FB282853247FF29700E114E5 /* NewListingViewController.swift */,
@@ -246,6 +255,7 @@
 				FB714F262476E267007FFFA9 /* Frameworks */,
 				FB714F272476E267007FFFA9 /* Resources */,
 				FF77518237BA7D51C3A1277B /* [CP] Embed Pods Frameworks */,
+				819C083070C5A8901B69A242 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -304,6 +314,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		819C083070C5A8901B69A242 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WeShare/Pods-WeShare-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WeShare/Pods-WeShare-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeShare/Pods-WeShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F858362A8EB1ABD3E5459A8E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,11 +379,13 @@
 			files = (
 				FB8A5EC324AB29B900B40B50 /* ActivityDetailViewController.swift in Sources */,
 				FBF13D992492F3DF00808865 /* Conversation.swift in Sources */,
+				FBAB885824AC6646005AB66F /* ForgotPasswordViewController.swift in Sources */,
 				FBFC016424AAE3520006DFE6 /* ActivityViewCell.swift in Sources */,
 				FB8A5EC524AC3FD200B40B50 /* UIColor.swift in Sources */,
 				FB113A1A247B658400CC924D /* LoginViewController.swift in Sources */,
 				FB8A5EC124AAE45A00B40B50 /* AllActivitiesViewController.swift in Sources */,
 				FBF13D9D249315D400808865 /* AllChatTableViewController.swift in Sources */,
+				FBAB885A24AC6945005AB66F /* UIViewController.swift in Sources */,
 				FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */,
 				FB1646EA247CC75D0092F083 /* Listing.swift in Sources */,
 				FB714F312476E267007FFFA9 /* ViewController.swift in Sources */,
@@ -377,6 +406,7 @@
 				FB28286924805C9B00E114E5 /* ListingDetailViewController.swift in Sources */,
 				FB282863248036A700E114E5 /* FloatingLabelTextField.swift in Sources */,
 				FB1646F0247CDBC10092F083 /* FirebaseController.swift in Sources */,
+				FBAB885624AC55EC005AB66F /* RegisterViewController.swift in Sources */,
 				FB28286724805B8C00E114E5 /* ListingTableViewCell.swift in Sources */,
 				FB77101324A3A39F00175F47 /* Activity.swift in Sources */,
 				FB16471F247E0F610092F083 /* MapViewController.swift in Sources */,
