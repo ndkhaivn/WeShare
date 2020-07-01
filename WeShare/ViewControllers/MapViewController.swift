@@ -81,8 +81,7 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
             
             markerAnnotationView.canShowCallout = true
             markerAnnotationView.animatesWhenAdded = true
-            
-//            markerAnnotationView.markerTintColor = UIColor.green
+            markerAnnotationView.markerTintColor = UIColor.givingColor(giving: (annotation.listing!.giving)!)
             
             markerAnnotationView.loadDescription(description: annotation.subtitle!)
             
