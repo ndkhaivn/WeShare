@@ -35,6 +35,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
+        // Initilize delegate
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -59,12 +60,14 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // listen for changes in message list
         databaseListener = conversationRef?.order(by: "time").addSnapshotListener { (querySnapshot, error) in
             if error != nil {
                 print(error!)
                 return
             }
             querySnapshot?.documentChanges.forEach({ change in
+                // parse the message
                 if change.type == .added {
                     let snapshot = change.document
                     let id = snapshot.documentID
@@ -85,11 +88,11 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         }
     }
     
+    // remove listener on disappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseListener?.remove()
     }
-    
     
     func currentSender() -> SenderType {
         return self.sender!

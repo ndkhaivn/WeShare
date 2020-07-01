@@ -21,6 +21,7 @@ class AllChatTableViewController: UITableViewController {
         
         super.viewDidLoad()
 
+        // get the logged in user
         let user = databaseController?.getCurrentUser()
         databaseController?.getConversations(userID: (user?.id)!).then{ result in
             self.conversations = result
@@ -31,12 +32,10 @@ class AllChatTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return conversations.count
     }
 
@@ -44,6 +43,7 @@ class AllChatTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath)
         let conversation = conversations[indexPath.row]
+        // just a simple row with conversation title
         cell.textLabel?.text = conversation.name
 
         return cell
@@ -52,6 +52,7 @@ class AllChatTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let conversation = conversations[indexPath.row]
+        // navigate to ChatViewController
         performSegue(withIdentifier: "chatSegue", sender: conversation)
     }
 

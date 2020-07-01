@@ -8,6 +8,7 @@
 
 protocol PickCategoryDelegate: AnyObject {
     
+    // Delegate picking category to a different TableViewController
     func pickCategory(category: Category)
     
 }

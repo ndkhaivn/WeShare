@@ -14,6 +14,7 @@ extension UIColor {
     static let GIVING = UIColor.systemGreen
     static let ASKING = UIColor.systemOrange
     
+    // Helper function to get corresponding color
     static func givingColor(giving: Bool) -> UIColor {
         if (giving) {
             return GIVING

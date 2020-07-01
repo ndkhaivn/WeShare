@@ -11,6 +11,7 @@ import UIKit
 
 extension UIViewController {
     
+    // Helper function to display alert with a Close buttons
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))

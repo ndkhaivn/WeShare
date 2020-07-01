@@ -21,7 +21,6 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     weak var databaseController: DatabaseProtocol?
     
     var imagesPNG: [Data] = []
-
     let INFO_CELL = "infoCell"
     
     var newListing: Listing = Listing() // initialize an empty Listing
@@ -38,16 +37,17 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     @IBOutlet weak var addressField: SearchTextField!
     @IBOutlet weak var descriptionField: UITextView!
     
+    // Geocoding address -> location
     var searchCompleter = MKLocalSearchCompleter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Initialize UI
         addImageButton.setImage(UIImage(systemName: "photo"), for: .normal)
         addImageButton.imageView?.contentMode = .scaleAspectFit
         addImageButton.layer.borderWidth = 1
         addImageButton.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
-        
         descriptionField.layer.borderWidth = 1
         descriptionField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
         descriptionField.layer.cornerRadius = 5.0
@@ -57,6 +57,8 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
+        
+        // Switch tint color
         givingSwitch.onTintColor = UIColor.GIVING
         givingSwitch.tintColor = UIColor.ASKING
         givingSwitch.layer.cornerRadius = givingSwitch.frame.height / 2
@@ -70,22 +72,25 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         scrollView.delegate = self
         searchCompleter.delegate = self
         // TODO: Change region (hardcoded Monash Uni)
+        // Setting searchCompleter region (10km around Monash Uni Clayton)
         searchCompleter.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: -37.910549, longitude: 145.136218), latitudinalMeters: 10000, longitudinalMeters: 10000)
         
+        // Geocode when user stops typing
         addressField.userStoppedTypingHandler = {
             if let criteria = self.addressField.text {
                 if criteria.count > 1 {
-                    print(criteria)
                     self.searchCompleter.queryFragment = criteria
                 }
             }
         }
+        // Choose an address
         addressField.itemSelectionHandler = { filteredResults, itemPosition in
             let item = filteredResults[itemPosition] as! AddressSuggestion
             self.addressField.text = item.title
             
             let searchRequest = MKLocalSearch.Request(completion: item.completion!)
             let search = MKLocalSearch(request: searchRequest)
+            // Start converting to location
             search.start { (response, error) in
                 if error == nil {
                     let coordinate = response?.mapItems[0].placemark.coordinate
@@ -95,10 +100,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         }
     }
     
-    @IBAction func pickLocation(_ sender: Any) {
-    }
-
-    
+    // Select multiple images from library
     @IBAction func pickImages(_ sender: Any) {
         
         let imagePicker = ImagePickerController()
@@ -113,27 +115,25 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
             // User finished selection assets.
             
             assets.forEach { asset in
-                
-//                let resources = PHAssetResource.assetResources(for: asset)
-//                let fileName = resources.first?.originalFilename
-                
+                // Convert the asset to UIImage
                 PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: nil) { (image, info) in
                     if info!["PHImageResultIsDegradedKey"] as! Int == 1 {
                         return
                     }
-                    let imageView = ListingImageView(image: image)
+                    // Add chosen image to scroll view
+                    let imageView = UIImageView(image: image)
                     imageView.widthAnchor.constraint(equalToConstant: 250).isActive = true
                     imageView.contentMode = .scaleAspectFill
                     imageView.clipsToBounds = true
                     
                     self.imagesPNG.append((image?.pngData())!)
-                    
                     self.imageStack.insertArrangedSubview(imageView, at: self.imageStack.arrangedSubviews.count - 1)
                 }
             }
         })
     }
     
+    // Upload multiple images to Firebase storage - return the list of image URLs
     func uploadImages() -> Promise<[URL]> {
         
         var downloadURLs: [URL] = []
@@ -144,8 +144,8 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         return Promise { fulfill, reject in
             self.imagesPNG.forEach { imageData in
                 
+                // random filename
                 let fileName = NSUUID().uuidString
-                print(fileName)
                 let uploadRef = storageRef.child("images/\(fileName).png")
                 
                 _ = uploadRef.putData(imageData, metadata: nil) { metadata, error in
@@ -154,15 +154,17 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
                         reject(error!)
                     }
                     
+                    // get downloadURL
                     uploadRef.downloadURL { (url, error) in
                         guard let downloadURL = url else {
                             print("Error getting downloadURL")
                             reject(error!)
                             return
                         }
+                        // put into list
                         downloadURLs.append(downloadURL)
-                        
-                        if (downloadURLs.count == self.imagesPNG.count) { // all images have been uploaded, add listing now
+                        if (downloadURLs.count == self.imagesPNG.count) {
+                            // all images have been uploaded, add listing now
                             self.newListing.imageURLs = downloadURLs
                             fulfill(downloadURLs)
                         }
@@ -174,6 +176,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     
     @IBAction func saveListing(_ sender: Any) {
         
+        // Validation
         var errors: [String] = []
         if (imagesPNG.count == 0) { errors.append("Please add Images") }
         if (titleField.text == nil || titleField.text!.isEmpty) { errors.append("Please enter Title") }
@@ -189,10 +192,12 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
             return
         }
         
-        let spinner = UIActivityIndicatorView()
+        // Valid inputs, adding now
+        let spinner = UIActivityIndicatorView() // loading spinner
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
         spinner.startAnimating()
         
+        // Only save after images have been uploaded
         uploadImages().then { (urls) in
             self.newListing.imageURLs = urls
             self.newListing.title = self.titleField.text
@@ -206,7 +211,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
             self.navigationController?.popViewController(animated: true)
         }
     }
-
+    
     func pickCategory(category: Category) {
         categoryField.text = category.name
         newListing.category = category
@@ -227,6 +232,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
 extension NewListingViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Hide result list when scroll view changes
         addressField.hideResultsList()
     }
 }
@@ -242,6 +248,7 @@ extension NewListingViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Hide keyboard on return
         self.view.endEditing(true)
         return true
     }
@@ -256,14 +263,17 @@ extension NewListingViewController: MKLocalSearchCompleterDelegate {
     }
 }
 
+// Simulate placeholder for Description UITextView
 extension NewListingViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
+        // begin editting, set color to black
         if textView.textColor == UIColor(red: 0, green: 0, blue: 0.0980392, alpha: 0.22) {
             textView.text = nil
             textView.textColor = UIColor.black
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
+        // change back to grey if no input
         if textView.text.isEmpty {
             textView.text = "Description"
             textView.textColor = UIColor(red: 0, green: 0, blue: 0.0980392, alpha: 0.22)

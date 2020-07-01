@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Forgot Password Screen
 class ForgotPasswordViewController: UIViewController {
 
     weak var databaseController: DatabaseProtocol?
@@ -19,15 +20,15 @@ class ForgotPasswordViewController: UIViewController {
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func resetPassword(_ sender: Any) {
         let email = emailField.text
         databaseController?.resetPassword(email: email!).then{ status in
+            // if successful, display a success message
             self.showAlert(title: "Success", message: "An email has been sent to \(email!).\n Please check your inbox.")
         }.catch{ error in
+            // otherwise, display an error
             self.showAlert(title: "Error", message: error.localizedDescription)
         }
         

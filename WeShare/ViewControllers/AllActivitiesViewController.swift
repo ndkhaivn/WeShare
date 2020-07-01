@@ -39,6 +39,8 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
         databaseController?.removeListener(listener: self)
     }
 
+    // Automatically determine the user and the direction
+    // Sample: From John Doe
     func userTakeGive(activity: Activity) -> String {
         var name = ""
         var action = ""
@@ -66,14 +68,16 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activities.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath) as! ActivityViewCell
         
         let activity = activities[indexPath.row]
+        // Each cell has an avatar
         cell.avatar.initAvatarFrame()
+        // Title
         cell.userLabel.text = userTakeGive(activity: activity)
+        // The item
         cell.itemLabel.text = "\((activity.listing.title)!) x\(activity.quantity)"
         if (activity.accepted == nil) {
             cell.pendingTag.text = "Pending"
@@ -101,13 +105,16 @@ class AllActivitiesViewController: UITableViewController, DatabaseListener {
         }
     }
 
+    // Setup trailing actions (Accept/Decline) the request
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Accept button with green background
         let accept = UIContextualAction(style: .normal, title: "Accept") { (action, view, completionHandler) in
             completionHandler(true)
             self.databaseController?.acceptActivity(activity: self.activities[indexPath.row], accepted: true)
         }
         accept.backgroundColor = .systemGreen
         
+        // Decline button with red background
         let decline = UIContextualAction(style: .normal, title: "Decline") { (action, view, completionHandler) in
             completionHandler(true)
             self.databaseController?.acceptActivity(activity: self.activities[indexPath.row], accepted: false)

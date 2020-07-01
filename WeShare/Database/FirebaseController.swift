@@ -61,6 +61,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func setUpActivitiesListener(hostID: String) {
         activitiesRef = database.collection("activities")
+        // Listen for activity where hostUser is the logged in user
         activitiesRef?.whereField("hostUser", isEqualTo: hostID).addSnapshotListener { (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
                 print("Error fetching documents: \(error!)")
@@ -69,6 +70,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             self.parseActivitiesSnapshot(snapshot: querySnapshot)
         }
         
+        // Listen for activity where requestUser is the logged in user
         activitiesRef?.whereField("requestUser", isEqualTo: hostID).addSnapshotListener { (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
                 print("Error fetching documents: \(error!)")
@@ -78,20 +80,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
 
+    // MARK:- Parse Functions for Firebase Firestore responses
     
+    // Parse listing DocumentSnapshot to Listing
     func parseListingDocument(document: DocumentSnapshot) -> Listing? {
         var parsedListing: Listing?
         
         let listingID = document.documentID
-        print(listingID)
         
         if let hostRef = document.data()!["host"] as? DocumentReference {
-            
             getUser(withID: hostRef.documentID).then { (user) in
                 parsedListing!.host = user
             }
         }
         
+        // Let Swift decode it
         do {
             parsedListing = try document.data(as: Listing.self)
         } catch {
@@ -108,7 +111,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return listing
     }
     
-    // MARK:- Parse Functions for Firebase Firestore responses
     func parseListingsSnapshot(snapshot: QuerySnapshot) {
 
         snapshot.documentChanges.forEach { (change) in
@@ -148,6 +150,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
             let activityID = change.document.documentID
             let document = change.document
             
+            // Parse Activities manually
+            
             let hostUserID = document["hostUser"] as! String
             let requestUserID = document["requestUser"] as! String
             let quantity = document["quantity"] as! Int
@@ -157,6 +161,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             let listingID = document["listing"] as! String
             
+            // Wait til hostUser, requestUser and listing are fetched
             Promises.all(
                 getUser(withID: hostUserID),
                 getUser(withID: requestUserID),
@@ -215,7 +220,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func addListing(listing: Listing) -> Listing {
         
         self.getUserReference(uid: (Auth.auth().currentUser?.uid)!).then { userRef in
-         
             do {
                 if let listingRef = try self.listingsRef?.addDocument(from: listing) {
                     listingRef.updateData(["host": userRef ])
@@ -224,7 +228,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
             } catch {
                 print("Failed to serialize listing")
             }
-            
         }
         
         return listing
@@ -260,6 +263,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     reject(err)
                 } else {
                     do {
+                        // let Swift decode user
                         let user = (try querySnapshot?.documents[0].data(as: User.self))!
                         user.id = querySnapshot?.documents[0].documentID
                         if (user.avatarURL != nil) {
@@ -289,6 +293,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 } else {
                     
                     do {
+                        // Let Swift decode user
                         let user = (try document!.data(as: User.self))!
                         user.id = id
                         if (user.avatarURL != nil) {
@@ -322,10 +327,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    // Return the logged in user
     func getCurrentUser() -> User {
         return self.currentUser!
     }
     
+    // Update user at key with value
     func updateUser(id: String, key: String, value: Any) -> Promise<Bool> {
         return Promise { fulfill, reject in
             self.usersRef?.document(id).updateData([
@@ -350,6 +357,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return document!
     }
     
+    // Get the conversation based on listing and userID, if not found then create new one
     func getConversation(listingID: String, userID: String, hostID: String, name: String) -> Promise<Conversation> {
         return Promise { fulfill, reject in
             self.conversationsRef?
@@ -357,10 +365,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
             .whereField("userID", isEqualTo: userID)
             .getDocuments { (querySnapshot, err) in
                 if querySnapshot?.documents.count == 0 {
+                    // creating new one
                     print("There is no such conversation. Creating new one now")
                     let new = self.newConversation(name: name, listingID: listingID, userID: userID, hostID: hostID)
                     fulfill(Conversation(id: new.documentID, name: name, listingID: listingID, userID: userID, hostID: hostID))
-                } else {
+                } else { // existing conversation, parse it then return
                     let snapshot = querySnapshot?.documents[0]
                     let id = snapshot!.documentID
                     let name = snapshot!["name"] as! String
@@ -377,7 +386,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
             self.conversationsRef?
             .whereField(matchField, isEqualTo: userID)
             .getDocuments { (querySnapshot, err) in
-                
                 if (querySnapshot != nil) {
                     fulfill(querySnapshot!.documents)
                 } else {
@@ -391,6 +399,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         var conversations: [Conversation] = []
         
+        // Query both messages from and messages to host
         return Promise { fulfill, reject in
             Promises.all(
                 self.queryConversationsSnapshot(matchField: "hostID", userID: userID),
@@ -431,13 +440,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
             listingsRef!.document((activity.listing.id)!).updateData([
                 "remaining": (activity.listing.remaining)! - activity.quantity
             ])
-        } else {
+        } else { // decline
             activitiesRef!.document(activity.id).updateData([
                 "accepted": false
             ]);
         }
     }
     
+    // Upload image to Firebase storage, return the URL
     func uploadImage(image: UIImage) -> Promise<URL> {
         
         let imageData = image.pngData()
@@ -468,6 +478,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    // Fetch image from Firebase storage, convert to UIImage
     func getImage(url: URL) -> Promise<UIImage> {
         let storage = Storage.storage()
         let storageRef = storage.reference(forURL: url.absoluteString)
@@ -490,6 +501,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 if error != nil {
                     reject(error!)
                 } else {
+                    // Initilize data after login
                     self.setUpListingListener()
                     self.setUpUsers()
                     self.setUpConversations()
@@ -538,9 +550,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     fulfill(true)
                 }
             }
-            
         }
-        
     }
     
     func addListener(listener: DatabaseListener) {

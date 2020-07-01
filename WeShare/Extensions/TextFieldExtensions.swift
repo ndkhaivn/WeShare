@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension UITextField {
+    // Display an icon on the left of the textfield
     func setLeftIcon(systemName icon: String) {
         let image = UIImage(systemName: icon)
         let imageView = UIImageView(frame: CGRect(x: 10, y: 5, width: 30, height: 20))

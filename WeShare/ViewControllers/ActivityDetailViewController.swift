@@ -36,6 +36,7 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
         let giver: User
         let taker: User
         
+        // Determine the giver and taker
         if (activity!.listing.giving == true) {
             giver = activity!.hostUser
             taker = activity!.requestUser
@@ -44,6 +45,7 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
             taker = activity!.hostUser
         }
         
+        // Make them round
         giverImage.initAvatarFrame()
         takerImage.initAvatarFrame()
         
@@ -55,6 +57,7 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
             takerImage.image = taker.avatarImage
         }
         
+        // Populate data
         giverName.text = giver.name
         takerName.text = taker.name
         listingTitle.text = "\((activity!.listing.title)!) x\(activity!.quantity)"
@@ -64,8 +67,10 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
         let formattedDate = formatter.string(from: activity!.acceptedOn!)
         activityDate.text = formattedDate
         
+        // shareText is used when share on Facebook
         shareText = "\((giver.name)!) shares [\((listingTitle.text)!)] with \((takerName.text)!)"
         
+        // item icon
         let imageView = UIImageView(frame: CGRect(x: 12, y: 12, width: 26, height: 26))
         imageView.image = UIImage(systemName: (activity!.listing.category?.systemIcon!)!)
         imageView.contentMode = .scaleAspectFill
@@ -81,6 +86,7 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
         
         let screenshot = self.view.takeScreenshot()
         
+        // Upload the image to Firebase, then share the image link on Facebook
         databaseController?.uploadImage(image: screenshot).then { url in
             let shareContent = ShareLinkContent()
             shareContent.contentURL = URL.init(string: url.absoluteString)!
@@ -89,6 +95,7 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
         }
     }
     
+    // Just delegate required functions
     func sharer(_ sharer: Sharing, didCompleteWithResults results: [String : Any]) {
         if sharer.shareContent.pageID != nil {
             print("Share: Success")
@@ -104,6 +111,8 @@ class ActivityDetailViewController: UIViewController, SharingDelegate {
 
 extension UIView {
     
+    // Take screenshot of an UIView as UIImage
+    // https://www.youtube.com/watch?v=TkUeY_aQyeI
     func takeScreenshot() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
         

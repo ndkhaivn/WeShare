@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Provide a list of categories for user to pick from
 class CategoriesTableViewController: UITableViewController {
 
     let CATEGORY_CELL = "categoryCell"
@@ -20,12 +21,6 @@ class CategoriesTableViewController: UITableViewController {
 
         categories = generateCategories()
         tableView.reloadData()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     func generateCategories() -> [Category] {
@@ -45,12 +40,10 @@ class CategoriesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return categories.count
     }
     
@@ -59,6 +52,7 @@ class CategoriesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! CategoryCell
         let category = categories[indexPath.row]
         
+        // Each row has an icon and a text
         cell.categoryName.text = category.name!
         cell.categoryIcon.image = UIImage(systemName: category.systemIcon!)
 
@@ -67,6 +61,7 @@ class CategoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        // on select row - delegate the chosen category
         pickCategoryDelegate?.pickCategory(category: categories[indexPath.row])
         navigationController?.popViewController(animated: true)
     }

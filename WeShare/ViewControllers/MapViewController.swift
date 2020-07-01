@@ -16,7 +16,7 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
 
     @IBOutlet weak var mapView: MKMapView!
     
-    private var allAnnotations: [MKAnnotation] = []
+    private var allAnnotations: [MKAnnotation] = [] // list of all annotations
     
     private var displayedAnnotations: [MKAnnotation]? {
         willSet {
@@ -55,10 +55,8 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
         mapView.removeAnnotations(allAnnotations)
         
         listings.forEach { listing in
-            print(listing.desc!)
+            // Add an annotation for each listing
             let annotation = MapAnnotation(title: listing.title!, subtitle: listing.desc!, lat: listing.location![0], lng: listing.location![1], iconName: (listing.category?.systemIcon!)!, listing: listing)
-            
-            
             mapView.addAnnotation(annotation)
             allAnnotations.append(annotation)
         }
@@ -76,15 +74,16 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
         if let markerAnnotationView = view as? MKMarkerAnnotationView {
             
+            // marker icon
             markerAnnotationView.glyphImage = UIImage(systemName: annotation.systemIconName!)
-
-            
             markerAnnotationView.canShowCallout = true
             markerAnnotationView.animatesWhenAdded = true
+            // marker color
             markerAnnotationView.markerTintColor = UIColor.givingColor(giving: (annotation.listing!.giving)!)
             
             markerAnnotationView.loadDescription(description: annotation.subtitle!)
             
+            // view listing detail button
             let rightButton = UIButton(type: .detailDisclosure)
             markerAnnotationView.rightCalloutAccessoryView = rightButton
         }
@@ -114,6 +113,7 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
         databaseController?.removeListener(listener: self)
     }
     
+    // update user marker
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
@@ -127,13 +127,12 @@ class MapViewController: UIViewController, DatabaseListener, CLLocationManagerDe
             performSegue(withIdentifier: "listingDetailSegue", sender: annotation.listing)
         }
     }
-    
 }
 
+// Custom multiline view for description (default only support one line)
 extension MKAnnotationView {
 
     func loadDescription(description: String) {
-        
         let customLines = description.components(separatedBy: CharacterSet.newlines)
         
         let stackView = self.stackView()
@@ -146,8 +145,6 @@ extension MKAnnotationView {
         }
         self.detailCalloutAccessoryView = stackView
     }
-
-
 
     private func stackView() -> UIStackView {
         let stackView = UIStackView()

@@ -9,40 +9,25 @@
 import UIKit
 import Firebase
 
-class LoginViewController: UIViewController, DatabaseListener {
+// Login Screen (including Register - Forgot Password buttons)
+class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     weak var databaseController: DatabaseProtocol?
     
-    var listenerType: ListenerType = .listings
-
-    func onListingsChange(change: DatabaseChange, listings: [Listing]) {
-        print(listings)
-    }
-    func onActivitiesChange(change: DatabaseChange, activities: [Activity]) {}
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Initialize Text Inputs
         emailField.setLeftIcon(systemName: "envelope")
         passwordField.setLeftIcon(systemName: "lock.open")
         
+        // After login, redirect fullscreen to Home Screen
         self.modalPresentationStyle = .fullScreen
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        databaseController?.addListener(listener: self)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        databaseController?.removeListener(listener: self)
     }
 
     @IBAction func login(_ sender: Any) {
@@ -50,8 +35,10 @@ class LoginViewController: UIViewController, DatabaseListener {
         let password = passwordField.text!
         
         databaseController?.signIn(email: email, password: password).then{ result in
+            // if login successfully, redirect to Home Screen
             self.performSegue(withIdentifier: "loginSuccessfully", sender: nil)
         }.catch({ error in
+            // otherwise, display error message
             self.showAlert(title: "Login Error", message: error.localizedDescription)
         })
     }
