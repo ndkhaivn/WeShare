@@ -29,13 +29,14 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     @IBOutlet weak var imageStack: UIStackView!
     @IBOutlet weak var addImageButton: UIButton!
     
+    @IBOutlet weak var givingSwitch: UISwitch!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var quantityField: UITextField!
     @IBOutlet weak var unitField: UITextField!
     @IBOutlet weak var addressField: SearchTextField!
-    @IBOutlet weak var descriptionField: UITextField!
+    @IBOutlet weak var descriptionField: UITextView!
     
     var searchCompleter = MKLocalSearchCompleter()
 
@@ -45,21 +46,28 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
         addImageButton.setImage(UIImage(systemName: "photo"), for: .normal)
         addImageButton.imageView?.contentMode = .scaleAspectFit
         addImageButton.layer.borderWidth = 1
-        addImageButton.layer.cornerRadius = 10
-        addImageButton.layer.borderColor = UIColor.link.cgColor
+        addImageButton.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
+        
+        descriptionField.layer.borderWidth = 1
+        descriptionField.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
+        descriptionField.layer.cornerRadius = 5.0
+        descriptionField.text = "Description"
+        descriptionField.textColor = UIColor(red: 0, green: 0, blue: 0.0980392, alpha: 0.22)
+        descriptionField.delegate = self
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
+        givingSwitch.onTintColor = UIColor.GIVING
+        givingSwitch.tintColor = UIColor.ASKING
+        givingSwitch.layer.cornerRadius = givingSwitch.frame.height / 2
+        givingSwitch.backgroundColor = UIColor.ASKING
         
         titleField.delegate = self
         categoryField.delegate = self
         quantityField.delegate = self
         unitField.delegate = self
         addressField.delegate = self
-        descriptionField.delegate = self
-        
         scrollView.delegate = self
-        
         searchCompleter.delegate = self
         // TODO: Change region (hardcoded Monash Uni)
         searchCompleter.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: -37.910549, longitude: 145.136218), latitudinalMeters: 10000, longitudinalMeters: 10000)
@@ -180,6 +188,7 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
             self.newListing.unit = self.unitField.text
             self.newListing.address = self.addressField.text
             self.newListing.desc = self.descriptionField.text
+            self.newListing.giving = self.givingSwitch.isOn
             _ = self.databaseController?.addListing(listing: self.newListing)
             self.navigationController?.popViewController(animated: true)
         }
@@ -231,5 +240,20 @@ extension NewListingViewController: MKLocalSearchCompleterDelegate {
         let suggestions = completer.results.map { AddressSuggestion(title: $0.title + ", " + $0.subtitle, completion: $0 ) }
         
         addressField.filterItems(suggestions)
+    }
+}
+
+extension NewListingViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor(red: 0, green: 0, blue: 0.0980392, alpha: 0.22) {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Description"
+            textView.textColor = UIColor(red: 0, green: 0, blue: 0.0980392, alpha: 0.22)
+        }
     }
 }

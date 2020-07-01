@@ -36,6 +36,7 @@
 		FB77101324A3A39F00175F47 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB77101224A3A39F00175F47 /* Activity.swift */; };
 		FB8A5EC124AAE45A00B40B50 /* AllActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A5EC024AAE45A00B40B50 /* AllActivitiesViewController.swift */; };
 		FB8A5EC324AB29B900B40B50 /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A5EC224AB29B900B40B50 /* ActivityDetailViewController.swift */; };
+		FB8A5EC524AC3FD200B40B50 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A5EC424AC3FD200B40B50 /* UIColor.swift */; };
 		FBA9D012247AD0DE0064669A /* NearbyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */; };
 		FBF13D9724927D6300808865 /* AddressSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D9624927D6300808865 /* AddressSuggestion.swift */; };
 		FBF13D992492F3DF00808865 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF13D982492F3DF00808865 /* Conversation.swift */; };
@@ -78,6 +79,7 @@
 		FB77101224A3A39F00175F47 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		FB8A5EC024AAE45A00B40B50 /* AllActivitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllActivitiesViewController.swift; sourceTree = "<group>"; };
 		FB8A5EC224AB29B900B40B50 /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
+		FB8A5EC424AC3FD200B40B50 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		FBA9D011247AD0DE0064669A /* NearbyListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyListingsViewController.swift; sourceTree = "<group>"; };
 		FBF13D9624927D6300808865 /* AddressSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSuggestion.swift; sourceTree = "<group>"; };
 		FBF13D982492F3DF00808865 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				FB1646A5247B75A10092F083 /* TextFieldExtensions.swift */,
 				FB282862248036A700E114E5 /* FloatingLabelTextField.swift */,
 				FBF13D9624927D6300808865 /* AddressSuggestion.swift */,
+				FB8A5EC424AC3FD200B40B50 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				FB8A5EC324AB29B900B40B50 /* ActivityDetailViewController.swift in Sources */,
 				FBF13D992492F3DF00808865 /* Conversation.swift in Sources */,
 				FBFC016424AAE3520006DFE6 /* ActivityViewCell.swift in Sources */,
+				FB8A5EC524AC3FD200B40B50 /* UIColor.swift in Sources */,
 				FB113A1A247B658400CC924D /* LoginViewController.swift in Sources */,
 				FB8A5EC124AAE45A00B40B50 /* AllActivitiesViewController.swift in Sources */,
 				FBF13D9D249315D400808865 /* AllChatTableViewController.swift in Sources */,

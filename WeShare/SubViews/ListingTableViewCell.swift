@@ -13,6 +13,8 @@ class ListingTableViewCell: UITableViewCell {
 
     @IBOutlet weak var listingTitle: UILabel!
     @IBOutlet weak var listingIcon: UIView!
+    @IBOutlet weak var listingProgress: UIProgressView!
+    
     
     
     override func awakeFromNib() {

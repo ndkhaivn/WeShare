@@ -68,15 +68,19 @@ extension NearbyListingsViewController: UITableViewDataSource, UITableViewDelega
 
         let listingCell = tableView.dequeueReusableCell(withIdentifier: "listingCell", for: indexPath) as! ListingTableViewCell;
         let listing = nearbyListings[indexPath.row]
+        let color = UIColor.givingColor(giving: listing.giving!)
         listingCell.listingTitle?.text = listing.title;
+        listingCell.listingTitle?.textColor = color;
+        listingCell.listingProgress.progressTintColor = color;
+        listingCell.listingProgress.progress = Float((listing.remaining)!)/Float(((listing.quantity)!))
         
-        let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        let imageView = UIImageView(frame: CGRect(x: 12, y: 12, width: 26, height: 26))
         imageView.image = UIImage(systemName: (listing.category?.systemIcon!)!)
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = UIColor.systemOrange
+        imageView.tintColor = color
     
         listingCell.listingIcon?.layer.cornerRadius = 25
-        listingCell.listingIcon?.layer.borderColor = UIColor.systemOrange.cgColor
+        listingCell.listingIcon?.layer.borderColor = color.cgColor
         listingCell.listingIcon?.layer.borderWidth = 3
         listingCell.listingIcon?.addSubview(imageView)
         

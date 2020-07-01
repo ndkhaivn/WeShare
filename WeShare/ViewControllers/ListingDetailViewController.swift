@@ -18,7 +18,7 @@ class ListingDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var progressText: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var hostName: UILabel!
     @IBOutlet weak var hostAvatar: UIImageView!
     @IBOutlet weak var location: UILabel!
@@ -30,12 +30,17 @@ class ListingDetailViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
-        descriptionLabel.sizeToFit()
+        let color = UIColor.givingColor(giving: (listing?.giving)!)
+        
+        titleLabel.textColor = color
+        progressText.textColor = color
+        progressView.progressTintColor = color
         
         titleLabel.text = listing?.title!
-        progressText.text = "Remaining: \(listing?.remaining! ?? 0) out of \(listing?.quantity! ?? 0) \(listing?.unit! ?? "")"
+        progressText.text = "Remaining: \(listing?.remaining! ?? 0)/\(listing?.quantity! ?? 0) \(listing?.unit! ?? "")"
         descriptionLabel.text = listing?.desc
         hostName.text = listing?.host!.name
+        progressView.progress = Float((listing?.remaining)!)/Float(((listing?.quantity)!))
         
         let levels = listing?.address?.split(separator: ",")
         let shortLocation = levels![1] // Extract the Suburb section from full address
@@ -63,6 +68,15 @@ class ListingDetailViewController: UIViewController {
     }
     
     @IBAction func request(_ sender: Any) {
+        
+        let currentUser = databaseController?.getCurrentUser()
+        if (currentUser?.id == listing?.host?.id) {
+            let alert = UIAlertController(title: "Warning", message: "You can't request your listing", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        
         let alert = UIAlertController(title: "Request", message: "Enter the quantity (\((listing?.remaining!)!) remaining)", preferredStyle: .alert)
         alert.addTextField()
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
@@ -95,6 +109,12 @@ class ListingDetailViewController: UIViewController {
     @IBAction func chatHost(_ sender: Any) {
         
         let currentUser = databaseController?.getCurrentUser()
+        if (currentUser?.id == listing?.host?.id) {
+            let alert = UIAlertController(title: "Warning", message: "You can't message yourself", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
         databaseController?.getConversation(listingID: listing!.id!, userID: (currentUser?.id)!, hostID: (listing?.host?.id)!, name: (listing?.title)!).then { conversation in
             print(conversation)
             let user = self.databaseController?.getCurrentUser()
