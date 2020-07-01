@@ -157,7 +157,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             let listingID = document["listing"] as! String
             
-            all(
+            Promises.all(
                 getUser(withID: hostUserID),
                 getUser(withID: requestUserID),
                 getListing(withID: listingID)
@@ -345,24 +345,41 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func getConversations(userID: String) -> Promise<[Conversation]> {
-        var conversations = [Conversation]()
+    func queryConversationsSnapshot(matchField: String, userID: String) -> Promise<[QueryDocumentSnapshot]> {
         return Promise { fulfill, reject in
             self.conversationsRef?
-            .whereField("hostID", isEqualTo: userID)
+            .whereField(matchField, isEqualTo: userID)
             .getDocuments { (querySnapshot, err) in
                 
-                querySnapshot?.documents.forEach({ snapshot in
+                if (querySnapshot != nil) {
+                    fulfill(querySnapshot!.documents)
+                } else {
+                    fulfill([])
+                }
+            }
+        }
+    }
+    
+    func getConversations(userID: String) -> Promise<[Conversation]> {
+        
+        var conversations: [Conversation] = []
+        
+        return Promise { fulfill, reject in
+            Promises.all(
+                self.queryConversationsSnapshot(matchField: "hostID", userID: userID),
+                self.queryConversationsSnapshot(matchField: "userID", userID: userID)
+            ).then { (messagesTo, messagesFrom) in
+                let snapshots = messagesTo + messagesFrom
+                snapshots.forEach({ snapshot in
                     let id = snapshot.documentID
                     let name = snapshot["name"] as! String
                     let listingID = snapshot["listingID"] as! String
                     let userID = snapshot["userID"] as! String
                     let hostID = snapshot["hostID"] as! String
-                    
+
                     let conversation = Conversation(id: id, name: name, listingID: listingID, userID: userID, hostID: hostID)
                     conversations.append(conversation)
                 })
-            
                 fulfill(conversations)
             }
         }
