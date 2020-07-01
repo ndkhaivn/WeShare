@@ -6,10 +6,15 @@
 //  Copyright © 2020 Monash University. All rights reserved.
 //
 
+import FBSDKShareKit
 import UIKit
+import Firebase
+import Promises
 
 class ActivityDetailViewController: UIViewController {
 
+    weak var databaseController: DatabaseProtocol?
+    
     @IBOutlet weak var listingIcon: UIView!
     @IBOutlet weak var listingTitle: UILabel!
     @IBOutlet weak var activityDate: UILabel!
@@ -20,10 +25,14 @@ class ActivityDetailViewController: UIViewController {
     @IBOutlet weak var takerName: UILabel!
     
     var activity: Activity?
+    var shareText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
+        
         let giver: User
         let taker: User
         
@@ -41,18 +50,50 @@ class ActivityDetailViewController: UIViewController {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy"
-        activityDate.text = formatter.string(from: activity!.acceptedOn!)
+        let formattedDate = formatter.string(from: activity!.acceptedOn!)
+        activityDate.text = formattedDate
+        
+        shareText = "\((giver.name)!) shares [\((listingTitle.text)!)] with \((takerName.text)!)"
+        
+        let imageView = UIImageView(frame: CGRect(x: 12, y: 12, width: 26, height: 26))
+        imageView.image = UIImage(systemName: (activity!.listing.category?.systemIcon!)!)
+        imageView.contentMode = .scaleAspectFill
+        imageView.tintColor = .systemTeal
+    
+        listingIcon?.layer.cornerRadius = 25
+        listingIcon?.layer.borderColor = UIColor.white.cgColor
+        listingIcon?.layer.borderWidth = 3
+        listingIcon?.addSubview(imageView)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func shareOnFacebook(_ sender: Any) {
+        
+        let screenshot = self.view.takeScreenshot()
+        
+        databaseController?.uploadImage(image: screenshot).then { url in
+            let shareContent = ShareLinkContent()
+            shareContent.contentURL = URL.init(string: url.absoluteString)!
+            shareContent.quote = self.shareText
+            ShareDialog(fromViewController: self, content: shareContent, delegate: self).show()
+        }
     }
-    */
+}
 
+extension UIView {
+    
+    func takeScreenshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
+        
+        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        if image != nil {
+            return image!
+        }
+        
+        return UIImage()
+    }
+    
 }

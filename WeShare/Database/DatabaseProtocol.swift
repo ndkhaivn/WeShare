@@ -46,8 +46,9 @@ protocol DatabaseProtocol: AnyObject {
     func getConversations(userID: String) -> Promise<[Conversation]>
     
     func addActivity(requestUser: User, quantity: Int, listing: Listing)
-    
     func acceptActivity(activity: Activity, accepted: Bool)
+    
+    func uploadImage(image: UIImage) -> Promise<URL>
     
     func signIn(email: String, password: String) -> Promise<Bool>
     func signUp(email: String, password: String, name: String, phoneNo: String) -> Promise<Bool>

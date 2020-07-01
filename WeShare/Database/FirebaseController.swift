@@ -409,7 +409,36 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 "accepted": false
             ]);
         }
+    }
+    
+    func uploadImage(image: UIImage) -> Promise<URL> {
         
+        let imageData = image.pngData()
+        
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        
+        return Promise { fulfill, reject in
+                
+            let fileName = NSUUID().uuidString
+            let uploadRef = storageRef.child("images/\(fileName).png")
+            
+            _ = uploadRef.putData(imageData!, metadata: nil) { metadata, error in
+                if metadata == nil {
+                    print("Error uploading images")
+                    reject(error!)
+                }
+                
+                uploadRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        print("Error getting downloadURL")
+                        reject(error!)
+                        return
+                    }
+                    fulfill(downloadURL)
+                }
+            }
+        }
     }
     
     func signIn(email: String, password: String) -> Promise<Bool> {
