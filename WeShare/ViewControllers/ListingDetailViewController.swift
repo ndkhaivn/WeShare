@@ -50,6 +50,11 @@ class ListingDetailViewController: UIViewController {
         imagesView.contentSize = CGSize(width: view.frame.width * CGFloat((listing?.imageURLs?.count)!), height: 211)
         imagesView.isPagingEnabled = true
         
+        hostAvatar.initAvatarFrame()
+        if (listing?.host?.avatarImage != nil) {
+            hostAvatar.image = listing!.host!.avatarImage!
+        }
+        
         for i in 0 ..< (listing?.imageURLs?.count)! {
             databaseController?.getImage(url: (listing?.imageURLs?[i])!).then { image in
                 let imageView = UIImageView(image: image)
