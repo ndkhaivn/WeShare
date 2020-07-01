@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 import Promises
 
-class ActivityDetailViewController: UIViewController {
+class ActivityDetailViewController: UIViewController, SharingDelegate {
 
     weak var databaseController: DatabaseProtocol?
     
@@ -76,6 +76,18 @@ class ActivityDetailViewController: UIViewController {
             shareContent.quote = self.shareText
             ShareDialog(fromViewController: self, content: shareContent, delegate: self).show()
         }
+    }
+    
+    func sharer(_ sharer: Sharing, didCompleteWithResults results: [String : Any]) {
+        if sharer.shareContent.pageID != nil {
+            print("Share: Success")
+        }
+    }
+    func sharer(_ sharer: Sharing, didFailWithError error: Error) {
+        print("Share: Fail")
+    }
+    func sharerDidCancel(_ sharer: Sharing) {
+        print("Share: Cancel")
     }
 }
 
