@@ -48,3 +48,13 @@ I also hope that when someone gets help, he will pay it forward and help others,
 | Chat | New Listing | Activity Review | 
 | :---: |:---:| :---:|
 | ![chat](docs/Messages.png) | ![newListing](docs/NewPost.png) | ![activityReview](docs/ActivityReview.png) |
+
+## Acknowledgements
+
+- [UIImageView Round Frame](https://stackoverflow.com/questions/25476139/how-do-i-make-an-uiimage-view-with-rounded-corners-cgrect-swift)
+
+- [ImagePicker](https://stackoverflow.com/questions/25510081/how-to-allow-user-to-pick-the-image-with-swift)
+
+- [Share on Facebook](https://stackoverflow.com/questions/46690231/share-on-facebook-ios-11-swift)
+
+- [Take screenshot of UIView](https://www.youtube.com/watch?v=TkUeY_aQyeI)
