@@ -28,7 +28,6 @@ class NearbyListingsViewController: UIViewController, DatabaseListener {
     }
     
     func onListingsChange(change: DatabaseChange, listings: [Listing]) {
-        print("listing changed")
         nearbyListings = listings
         tableView.reloadData()
     }

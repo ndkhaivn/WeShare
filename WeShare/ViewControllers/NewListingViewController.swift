@@ -174,7 +174,20 @@ class NewListingViewController: UIViewController, PickCategoryDelegate {
     
     @IBAction func saveListing(_ sender: Any) {
         
-        // TODO: Validation
+        var errors: [String] = []
+        if (imagesPNG.count == 0) { errors.append("Please add Images") }
+        if (titleField.text == nil || titleField.text!.isEmpty) { errors.append("Please enter Title") }
+        if (quantityField.text == nil || Int(quantityField.text!) == nil) { errors.append("Please enter valid Quantity") }
+        if (unitField.text == nil || unitField.text!.isEmpty) { errors.append("Please enter Unit") }
+        if (addressField.text == nil || newListing.location == nil) { errors.append("Please enter valid Address") }
+        if (descriptionField.text == nil) { errors.append("Please enter Description") }
+        if (newListing.category == nil) { errors.append("Please choose Category") }
+        
+        if (errors.count > 0) {
+            let message = errors.joined(separator: "\n")
+            self.showAlert(title: "Error", message: message)
+            return
+        }
         
         let spinner = UIActivityIndicatorView()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)

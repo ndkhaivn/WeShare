@@ -77,6 +77,10 @@ class ListingDetailViewController: UIViewController {
         alert.addTextField()
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
+            if (textField!.text == nil || textField!.text!.isEmpty || Int(textField!.text!) == nil) {
+                self.showAlert(title: "Error", message: "Please input a valid quantity")
+                return
+            }
             let currentUser = self.databaseController?.getCurrentUser()
             self.databaseController?.addActivity(requestUser: currentUser!, quantity: Int(textField!.text!) ?? 0, listing: self.listing!)
         }))
